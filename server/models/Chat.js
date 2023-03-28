@@ -6,7 +6,7 @@ const dateFormat = require('../utils/dateFormat');
 const chatSchema = new Schema({
   chatText: {
     type: String,
-    required: 'You need to leave a thought!',
+    required: 'You need to leave a chat message!',
     minlength: 1,
     maxlength: 280,
     trim: true,
