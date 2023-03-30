@@ -1,19 +1,22 @@
-// Set up the API endpoint URL and API key
-const url = "https://api-805C895D-380F-4455-9E67-AC9466E76EF6.sendbird.com";
-const apiKey = "18b8c4dcfabe8ba4eece413f58acdf20739c01a6";
+const apiUrl = 'https://api-805C895D-380F-4455-9E67-AC9466E76EF6.sendbird.com';
+const apiKey = '18b8c4dcfabe8ba4eece413f58acdf20739c01a6';
 
-// Set up the request headers
-const headers = new Headers();
-headers.append("Api-Token", apiKey);
+const animalList = document.getElementById('animal-list');
 
-// Make the API call
-fetch(url, { headers })
-  .then(response => response.json())
-  .then(data => {
-    // Handle the API response data
-    console.log(data);
-  })
-  .catch(error => {
-    // Handle any errors that occur
-    console.error(error);
+// Fetch the animal data from the API
+fetch(`${apiUrl}/animals?area=${encodeURIComponent('Your Area')}`, {
+  headers: {
+    'Api-Key': apiKey
+  }
+})
+.then(response => response.json())
+.then(data => {
+  // Loop through the animals and add them to the list
+  data.forEach(animal => {
+    const listItem = document.createElement('li');
+    listItem.textContent = `${animal.name} - ${animal.type} - ${animal.price}`;
+    animalList.appendChild(listItem);
   });
+})
+.catch(error => console.error(error));
+
