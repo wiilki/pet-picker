@@ -4,10 +4,13 @@ import { Link } from 'react-router-dom';
 
 
 
-function App() {
+function Cat () {
     return (
-        <div className="app">
-            <header className="Cats"></header>
+        <div className="Cat">
+            <header className="Cat-home"></header>
+            <p>
+                cat
+            </p>
         </div>
     )
 
