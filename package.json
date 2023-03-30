@@ -1,5 +1,5 @@
 {
-  "name": "final-project",
+  "name": "petpicker",
   "version": "1.0.0",
   "description": "",
   "main": "server/server.js",
@@ -16,7 +16,6 @@
     "concurrently": "^5.1.0"
   },
   "dependencies": {
-    "concurrently": "^5.1.0",
     "apollo-server-express": "^3.11.1",
     "express": "^4.17.2",
     "graphql": "^15.8.0"
