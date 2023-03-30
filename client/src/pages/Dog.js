@@ -5,6 +5,10 @@ import { Link } from 'react-router-dom';
 
 const dog = () => {
     return (
-        <div className='container'
+        <div className='container'>
+        
+        </div>
     )
 }
+
+export default dog;

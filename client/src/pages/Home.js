@@ -1,15 +1,7 @@
-import React from "react";
-import LoginForm from "../components/Login";
-import SignupForm from "../components/Signup";
+import React from 'react'
 
-const Home = () => {
+export default function Home() {
   return (
-    <div className="container">
-      <CategoryMenu />
-      <ProductList />
-      <Cart />
-    </div>
-  );
-};
-
-export default Home;
+    <Navbar />
+  )
+}
