@@ -1,8 +1,8 @@
 const Users = require('./Users');
-const Pet = reqiure('./Pet')
-const Favorite = reqiure('./Favorite')
+const Pet = require('./Pet')
+const Favorite = require('./Favorite')
 const Category = require('./Category');
-const Chat = reqiure('./Chat')
+const Chat = require('./Chat')
 const mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost:3000/pet-picker', {
