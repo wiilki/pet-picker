@@ -1,16 +1,9 @@
 import React, { useState } from 'react';
 
-<<<<<<< HEAD:client/src/components/Login.js
 
 export const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-=======
-import { useMutation } from '@apollo/client'; 
-import { LOGIN_USER } from '../../utils/mutations';
-
-import Auth from '../../utils/auth';
->>>>>>> 9948f7459e55c3fee4991b89f28663af720ed7ff:client/src/components/Login/Login.js
 
     const handleSubmit = (e) =>{
     e.preventDefault();
