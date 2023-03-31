@@ -40,7 +40,12 @@ function Nav() {
                 </Link>
             </h1>
 
-            <nav>{showNavigation()}</nav>
+            <nav>
+                {showNavigation()}
+                <Link to="/favorites" className="ml-auto">
+                    Favorites
+                </Link>
+            </nav>
         </header>
     );
 }

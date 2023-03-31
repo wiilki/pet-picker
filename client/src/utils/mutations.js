@@ -69,3 +69,22 @@ export const REMOVE_FAVORITE_PET = gql`
     }
   }
 `;
+
+export const QUERY_FAVORITE_PETS = gql`
+  query {
+    favoritePets {
+      id
+      name
+      type
+      breed
+      age
+      gender
+      location
+      description
+      isAdopted
+      primary_photo_cropped {
+        small
+      }
+    }
+  }
+`;

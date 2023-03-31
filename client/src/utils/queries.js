@@ -39,7 +39,7 @@ export const QUERY_PET = gql`
 `;
 
 export const QUERY_FAVORITE_PETS = gql`
-  {
+  query {
     favoritePets {
       id
       name
