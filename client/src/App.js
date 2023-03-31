@@ -12,8 +12,8 @@ import { Provider } from 'react-redux';
 
 import Home from './pages/Home';
 // import Search from './pages/Search';
-// import Login from './pages/Login';
-// import Signup from './pages/Signup';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 // import Favorites from './pages/Favorites';
 import Nav from './components/Nav';
 
@@ -50,7 +50,7 @@ function App() {
             {/* <Route
               path="/favorites"
               element={<Favorites />}
-            />
+            /> */}
             <Route
               path="/login"
               element={<Login />}
@@ -58,7 +58,7 @@ function App() {
             <Route
               path="/signup"
               element={<Signup />}
-            /> */}
+            />
           </Routes>
         </div>
       </Router>
