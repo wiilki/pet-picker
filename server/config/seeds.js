@@ -15,7 +15,7 @@ async function seedAnimals() {
       age: 1,
       location: 'Santa Clarita',
       price: 75,
-      status: 'for sale'
+      isAdopted: false
     },
     {
       name: 'Brutus',
@@ -25,8 +25,7 @@ async function seedAnimals() {
       age: 2,
       location: 'Irvine',
       price: 850,
-      status: 'for sale'
-    },
+      isAdopted: false    },
     {
       name: 'Morty',
       type: 'Cat',
@@ -35,8 +34,7 @@ async function seedAnimals() {
       age: 4,
       location: 'Los Angeles',
       price: 0,
-      status: 'for adoption'
-    }
+      isAdopted: false    }
   ];
 
   for (const animal of animals) {

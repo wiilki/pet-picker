@@ -18,7 +18,8 @@ const typeDefs = gql`
     age: Int
     location: String
     price: Float
-    status: String
+    description: String
+    isAdopted: Boolean
     imageUrl: String
   }
 
