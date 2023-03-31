@@ -1,12 +1,11 @@
 import React from "react";
-import LoginForm from "../components/Login";
 
-
-export default function Home() {
+const Home = () => {
   return (
-    <div> Hello world</div>
+    <div className="container">
+      <h1>HELLO WORLD</h1>
+    </div>
+  );
+};
 
-  )
-  
-  
-}
+export default Home;
