@@ -1,12 +1,12 @@
 import React from "react";
-import LoginForm from "../components/Login";
 
-
-export default function Home() {
+const Home = () => {
   return (
-    <div> Hello world</div>
+    <div className="container">
+      <h1>Pet Pickers</h1>
+      <h2>Find your next pet here!</h2>
+    </div>
+  );
+};
 
-  )
-  
-  
-}
+export default Home;
