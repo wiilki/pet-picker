@@ -10,24 +10,31 @@ async function seedAnimals() {
     {
       name: 'Fish',
       type: 'Dog',
-      area: 'Your Area',
+      breed: 'Mut',
+      gender: 'female',
+      age: 1,
+      location: 'Santa Clarita',
       price: 75,
-      status: 'for sale'
+      isAdopted: false
     },
     {
       name: 'Brutus',
       type: 'dog',
-      area: 'Your Area',
+      breed: 'Bulldog',
+      gender: 'Male',
+      age: 2,
+      location: 'Irvine',
       price: 850,
-      status: 'for sale'
-    },
+      isAdopted: false    },
     {
       name: 'Morty',
       type: 'Cat',
-      area: 'Your Area',
+      breed: 'Maine Coon',
+      gender: 'female',
+      age: 4,
+      location: 'Los Angeles',
       price: 0,
-      status: 'for adoption'
-    }
+      isAdopted: false    }
   ];
 
   for (const animal of animals) {
