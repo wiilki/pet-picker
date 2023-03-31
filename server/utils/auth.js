@@ -1,46 +1,54 @@
 const jwt = require('jsonwebtoken');
 const { User } = require('../models/user');
 
-const secret = 'mysecretsshhhhh';
-const expiration = '2h';
+// Create a JWT token
+const createToken = (user) => {
+  const payload = {
+    user: {
+      id: user._id
+    }
+  };
+  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+};
+
+// Verify a JWT token
+const verifyToken = (token) => {
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    return decoded.user;
+  } catch (err) {
+    return null;
+  }
+};
+
+// Authenticate a user by verifying their JWT token
+const authenticate = async (req, res, next) => {
+  const token = req.header('Authorization');
+  if (!token) {
+    return res.status(401).json({ message: 'Authorization denied' });
+  }
+
+  const user = verifyToken(token);
+  if (!user) {
+    return res.status(401).json({ message: 'Invalid token' });
+  }
+
+  try {
+    const foundUser = await User.findById(user.id).select('-password');
+    if (!foundUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    req.user = foundUser;
+    next();
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
 
 module.exports = {
-  authMiddleware: function ({ req }) {
-    // allows token to be sent via req.body, req.query, or headers
-    let token = req.body.token || req.query.token || req.headers.authorization;
-
-    // ["Bearer", "<tokenvalue>"]
-    if (req.headers.authorization) {
-      token = token
-        .split(' ')
-        .pop()
-        .trim();
-    }
-
-    console.log("token", token)
-
-
-    if (!token) {
-      return req;
-    }
-
-    try {
-      const { data } = jwt.verify(token, secret, { maxAge: expiration });
-      req.user = data;
-    }
-    catch {
-      console.log('Invalid token');
-    }
-
-    return req;
-  },
-  signToken: function ({ firstName, email, _id }) {
-    const payload = { firstName, email, _id };
-
-    return jwt.sign(
-      { data: payload },
-      secret,
-      { expiresIn: expiration }
-    );
-  }
+  createToken,
+  verifyToken,
+  authenticate
 };
