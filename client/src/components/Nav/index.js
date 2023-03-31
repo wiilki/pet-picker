@@ -42,9 +42,6 @@ function Nav() {
 
             <nav>
                 {showNavigation()}
-                <Link to="/favorites" className="ml-auto">
-                    Favorites
-                </Link>
             </nav>
         </header>
     );
