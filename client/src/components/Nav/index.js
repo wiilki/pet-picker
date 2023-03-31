@@ -42,6 +42,7 @@ function Nav() {
 
             <nav>
                 {showNavigation()}
+                <Link to="/search">Search</Link>
             </nav>
         </header>
     );
