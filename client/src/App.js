@@ -1,10 +1,20 @@
 import React, {useState} from 'react';
-import Home from './pages/Home'
-import Navbar from './Navigation/ Navbar'
-import Cat from './pages/Cat'
-import "./index.css";
-import { Login } from './components/Login';
-import { Signup } from './components/Signup';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+
+import { Provider } from 'react-redux';
+
+import Home from './pages/Home';
+import Favorites from './pages/Favorites';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Nav from './components/Nav';
 
 function App() {
   const [currentForm, setCurrentForm] = useState('login');
