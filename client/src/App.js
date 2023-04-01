@@ -1,17 +1,36 @@
-import React, {useState} from 'react';
-import Home from './pages/Home'
-import Navbar from './Navigation/ Navbar'
-import Cat from './pages/Cat'
-import "./index.css";
-import { Login } from './components/Login';
-import { Signup } from './components/Signup';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+import { Provider } from 'react-redux';
+import store from './utils/store';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Favorites from './pages/Favorites';
+import Search from './pages/Search';
+import Nav from './components/Nav';
+
+const httpLink = createHttpLink({
+  uri: '/graphql',
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('id_token');
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+});
 
 function App() {
-  const [currentForm, setCurrentForm] = useState('login');
-
-  const toggleForm = (forName) => {
-    setCurrentForm(forName);
-  }
   return (
     <div className="App">
       
@@ -26,8 +45,6 @@ function App() {
     </div>
     
   );
-   
-
 }
 
 export default App;
