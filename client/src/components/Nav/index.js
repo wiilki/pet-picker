@@ -40,10 +40,7 @@ function Nav() {
                 </Link>
             </h1>
 
-            <nav>
-                {showNavigation()}
-                <Link to="/search">Search</Link>
-            </nav>
+            <nav>{showNavigation()}</nav>
         </header>
     );
 }

@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+
 import { Provider } from 'react-redux';
 import store from './utils/store';
+
 import Home from './pages/Home';
+import Favorites from './pages/Favorites';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Favorites from './pages/Favorites';
-import Search from './pages/Search';
 import Nav from './components/Nav';
+// import PetCard from './components/PetCard'
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -32,19 +39,40 @@ const client = new ApolloClient({
 
 function App() {
   return (
-    <div className="App">
-      
-      
-      
-      
-      
-      {
-        currentForm === 'login' ? <Login onFormSwitch={toggleForm} /> : <Signup onFormSwitch={toggleForm} />
-       
-      }
-    </div>
-    
+    <ApolloProvider client={client}>
+      <Router>
+        <div>
+          <Provider store={store}>
+            <Nav />
+            <Routes>
+              <Route
+                path="/"
+                element={<Home />}
+              />
+              <Route
+                path="/login"
+                element={<Login />}
+              />
+              <Route
+                path="/signup"
+                element={<Signup />}
+              />
+              <Route
+                path="/favorites"
+                element={<Favorites />}
+              />
+              {/* <Route
+                path="/pets/:id"
+                element={<PetCard />}
+              /> */}
+            </Routes>
+          </Provider>
+        </div>
+      </Router>
+    </ApolloProvider>
   );
+
+
 }
 
 export default App;
