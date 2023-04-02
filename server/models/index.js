@@ -19,4 +19,4 @@ db.once('open', () => {
   console.log('Database connected');
 });
 
-module.exports = { Users, Animal, Favorite, Category, Chat };
+module.exports = { Users, Pet, Favorite, Category, Chat };
