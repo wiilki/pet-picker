@@ -1,3 +1,4 @@
+const { AuthenticationError } = require('apollo-server-express');
 const { User, Pet, Favorites, Category } = require('../models');
 const { signToken } = require('../utils/auth');
 
@@ -6,9 +7,12 @@ const resolvers = {
     // Resolve the `me` query, which returns the logged-in user's data
     me: async (parent, args, context) => {
       if (context.user) {
-        const user = await User.findById(context.user._id).populate('orders.products');
-
-        return user;
+        const userData = await User.findOne({ _id: context.user._id })
+          .select('-__v -password')
+          .populate('pet')
+          .populate('favorites');
+          
+        return userData;
       }
 
       throw new AuthenticationError('Not logged in');
@@ -49,27 +53,26 @@ const resolvers = {
 
   Mutation: {
     // Resolve the `login` mutation, which logs in a user
-    login: async (parent, { email, password }) => {
-      const user = await User.findOne({ email });
+    login: async (parent, { firstName, lastName, email, password }) => {
+      const user = await User.findOne({ firstName, lastName, email, password });
 
       if (!user) {
-        throw new AuthenticationError('Incorrect email or password');
+        throw new AuthenticationError('No profile with this email found!');
       }
 
       const correctPassword = await user.isCorrectPassword(password);
 
       if (!correctPassword) {
-        throw new AuthenticationError('Incorrect email or password');
+        throw new AuthenticationError('Incorrect password!');
       }
 
       const token = signToken(user);
-
       return { token, user };
     },
 
     // Resolve the `addUser` mutation, which adds a new user
-    addUser: async (parent, args) => {
-      const user = await User.create(args);
+    addUser: async (parent, { firstName, lastName, email, password }) => {
+      const user = await User.create({ firstName, lastName, email, password });
       const token = signToken(user);
 
       return { token, user };
@@ -86,20 +89,8 @@ const resolvers = {
       throw new AuthenticationError('Not logged in');
     },
 
-    // Resolve the `addOrder` mutation, which adds a new order for the logged-in user
-    addOrder: async (parent, { products }, context) => {
-      if (context.user) {
-        const order = { products };
-        const updatedUser = await User.findByIdAndUpdate(context.user._id, { $push: { orders: order } }, { new: true });
-
-        return updatedUser;
-      }
-
-      throw new AuthenticationError('Not logged in');
-    },
-
     // Resolve the `addPet` mutation, which adds a new pet
-    addPet: async (parent, args, context) => {
+    addPet: async (parent, { _id,  }, context) => {
       if (context.user) {
         const pet = await Pet.create(args);
 

@@ -32,22 +32,18 @@ const client = new ApolloClient({
 
 function App() {
   return (
-    <ApolloProvider client={client}>
-      <Provider store={store}>
-        <Router>
-          <div>
-            <Nav />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/favorites" element={<Favorites />} />
-              <Route path="/search" element={<Search />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
-            </Routes>
-          </div>
-        </Router>
-      </Provider>
-    </ApolloProvider>
+    <div className="App">
+      
+      
+      
+      
+      
+      {
+        currentForm === 'login' ? <Login onFormSwitch={toggleForm} /> : <Signup onFormSwitch={toggleForm} />
+       
+      }
+    </div>
+    
   );
 }
 
