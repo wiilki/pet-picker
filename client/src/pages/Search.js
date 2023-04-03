@@ -12,16 +12,7 @@ const Search = () => {
   return (
     <div>
       <h1>Search for pets</h1>
-      <SearchForm onSearch={handleSearch} />
-      {searchResults.length > 0 ? (
-        <ul>
-          {searchResults.map((result) => (
-            <li key={result.id}>{result.name}</li>
-          ))}
-        </ul>
-      ) : (
-        <p>No results found</p>
-      )}
+      <SearchForm />
     </div>
   );
 };
