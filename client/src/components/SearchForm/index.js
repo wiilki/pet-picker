@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import petfinder from '../../utils/petfinder';
 
-
 const SearchForm = ({ onSubmit }) => {
   const [type, setType] = useState('');
   const [breed, setBreed] = useState('');
