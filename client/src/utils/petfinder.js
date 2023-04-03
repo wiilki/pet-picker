@@ -1,38 +1,23 @@
-const dotenv = require("dotenv");
-dotenv.config();
+const petfinder = {
+  getToken: async function() {
+    const clientId = '9gSueaI6Vk4On9SsUSxGAVdYH4CfunaBEaGmRDLzlLTSALvP01';
+    const clientSecret = 'E0CmkPvQyEa5jZcI4Nxl73DvYtAaxAhE7Zj2kx1E';
 
+    const response = await fetch('https://api.petfinder.com/v2/oauth2/token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: `grant_type=client_credentials&client_id=${clientId}&client_secret=${clientSecret}`
+    });
 
-export const getAccessToken = async () => {
-    try {
-        const response = await fetch('https://api.petfinder.com/v2/oauth2/token/', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                grant_type: 'client_credentials',
-                client_id: process.env.API_KEY,
-                client_secret: process.env.API_SECRET
-            })
-        });
-        if (!response.ok) {
-            throw new Error('Could not fetch token from petfinder.');
-        }
-
-        const data = await response.json();
-        const tokenExpiry = new Date().getTime() + data.expires_in * 1000;
-
-        localStorage.setItem('petfinder',
-            JSON.stringify({
-                token: data.access_token,
-                tokenExpiry: tokenExpiry
-            })
-        );
-        return data.access_token;
-    }
-    catch (error) {
-        console.error(error)
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status} - ${response.statusText}`);
     }
 
-}
+    const data = await response.json();
+    return data.access_token;
+  }
+};
+
+module.exports = petfinder;
