@@ -1,96 +1,115 @@
-import React, { useState, useEffect } from 'react';
-import petfinder from '../../utils/petfinder';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 
-const SearchForm = ({ onSubmit }) => {
-  const [type, setType] = useState('');
-  const [breed, setBreed] = useState('');
-  const [age, setAge] = useState('');
-  const [gender, setGender] = useState('');
-  const [location, setLocation] = useState('');
-  const [breeds, setBreeds] = useState([]);
+const SearchForm = ({ onSearch }) => {
+  const [searchQuery, setSearchQuery] = useState({
+    type: "",
+    age: "",
+    gender: "",
+    location: "",
+  });
 
-  useEffect(() => {
-    petfinder.getToken().then(token => {
-      const headers = {
-        Authorization: `Bearer ${token}`
-      };
-      const url = `https://api.petfinder.com/v2/types/dog/breeds`;
-      fetch(url, { headers })
-        .then(response => response.json())
-        .then(data => {
-          setBreeds(data.breeds.map(breed => breed.name));
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    });
-  }, []);
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    const searchOptions = {
-      type, breed, age, gender, location
-    };
-    petfinder.search(searchOptions).then(data => {
-      onSubmit(data.animals);
-    }).catch(error => {
-      console.error(error);
-    });
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setSearchQuery({ ...searchQuery, [name]: value });
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onSearch(searchQuery);
+  };
+
+  const ageRanges = [
+    "Baby",
+    "Young",
+    "Adult",
+    "Senior",
+  ];
+
+  const petTypes = [
+    "Dog",
+    "Cat",
+    "Bird",
+    "Rabbit",
+    "Small & Furry",
+    "Horse",
+    "Reptile",
+    "Barnyard",
+  ];
+
+  const genders = ["Male", "Female", "Unknown"];
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>
-        Type:
-        <select value={type} onChange={e => setType(e.target.value)}>
-          <option value="">Select Type</option>
-          <option value="dog">Dog</option>
-          <option value="cat">Cat</option>
-          <option value="rabbit">Rabbit</option>
-        </select>
-      </label>
-      <label>
-        Breed:
-        <select value={breed} onChange={e => setBreed(e.target.value)}>
-          <option value="">Select Breed</option>
-          {breeds.map(breed => (
-            <option key={breed} value={breed}>
-              {breed}
+      <div>
+        <label htmlFor="type">Type:</label>
+        <select
+          id="type"
+          name="type"
+          value={searchQuery.type}
+          onChange={handleInputChange}
+        >
+          <option value="">Select Pet Type</option>
+          {petTypes.map((type) => (
+            <option key={type} value={type}>
+              {type}
             </option>
           ))}
         </select>
-      </label>
-      <label>
-        Age Range:
-        <select value={age} onChange={e => setAge(e.target.value)}>
+      </div>
+
+      <div>
+        <label htmlFor="age">Age:</label>
+        <select
+          id="age"
+          name="age"
+          value={searchQuery.age}
+          onChange={handleInputChange}
+        >
           <option value="">Select Age Range</option>
-          <option value="baby">Baby</option>
-          <option value="young">Young</option>
-          <option value="adult">Adult</option>
-          <option value="senior">Senior</option>
+          {ageRanges.map((range) => (
+            <option key={range} value={range}>
+              {range}
+            </option>
+          ))}
         </select>
-      </label>
-      <label>
-        Gender:
-        <select value={gender} onChange={e => setGender(e.target.value)}>
+      </div>
+
+      <div>
+        <label htmlFor="gender">Gender:</label>
+        <select
+          id="gender"
+          name="gender"
+          value={searchQuery.gender}
+          onChange={handleInputChange}
+        >
           <option value="">Select Gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
+          {genders.map((gender) => (
+            <option key={gender} value={gender}>
+              {gender}
+            </option>
+          ))}
         </select>
-      </label>
-      <label>
-        Location:
+      </div>
+
+      <div>
+        <label htmlFor="location">Location:</label>
         <input
           type="text"
-          value={location}
-          onChange={e => setLocation(e.target.value)}
-          placeholder="Enter a location"
+          id="location"
+          name="location"
+          value={searchQuery.location}
+          onChange={handleInputChange}
         />
-      </label>
+      </div>
+
       <button type="submit">Search</button>
     </form>
   );
+};
+
+SearchForm.propTypes = {
+  onSearch: PropTypes.func.isRequired,
 };
 
 export default SearchForm;

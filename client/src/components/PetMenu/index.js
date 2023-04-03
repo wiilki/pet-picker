@@ -2,10 +2,13 @@ import React from 'react';
 import PetCard from '../PetCard';
 
 const PetMenu = ({ pets }) => {
-  const limitedPets = pets.slice(0, 50); // create a new array with the first 50 pets
+  if (!pets || pets.length === 0) {
+    return <div>No pets found</div>;
+  }
+
   return (
     <div>
-      {limitedPets.map(pet => (
+      {pets.map(pet => (
         <PetCard
           key={pet.id}
           name={pet.name}
