@@ -11,7 +11,9 @@ function Nav() {
                         <Link to="/favorites">Favorite Pets</Link>
                     </li>
                     <li>
-                        {/* this is not using the Link component to logout or user and then refresh the application to the start */}
+                        <Link to="/search">Search Pets</Link>
+                    </li>
+                    <li>
                         <a href="/" onClick={() => Auth.logout()}>
                             Logout
                         </a>
@@ -27,13 +29,16 @@ function Nav() {
                     <li>
                         <Link to="/login">Login</Link>
                     </li>
+                    <li>
+                        <Link to="/search">Search Pets</Link>
+                    </li>
                 </ul>
             );
         }
     }
 
     return (
-        <header className="flex-row px-1">
+        <header className="flex-row">
             <h1>
                 <Link to="/">
                     Pet Picker
