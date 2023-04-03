@@ -7,9 +7,9 @@ import store from './utils/store';
 import Home from './pages/Home';
 import Favorites from './pages/Favorites';
 import Login from './pages/Login';
+import Search from './pages/Search';
 import Signup from './pages/Signup';
 import Nav from './components/Nav';
-import Search from './components/SearchForm'
 
 const httpLink = createHttpLink({
   uri: '/graphql',

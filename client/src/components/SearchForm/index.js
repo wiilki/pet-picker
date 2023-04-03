@@ -28,8 +28,16 @@ const SearchForm = ({ onSubmit }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    onSubmit({ type, breed, age, gender, location });
+    const searchOptions = {
+      type, breed, age, gender, location
+    };
+    petfinder.search(searchOptions).then(data => {
+      onSubmit(data.animals);
+    }).catch(error => {
+      console.error(error);
+    });
   };
+
 
   return (
     <form onSubmit={handleSubmit}>
