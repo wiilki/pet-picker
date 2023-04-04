@@ -1,27 +1,33 @@
 import React, { useState } from "react";
+import PetMenu from "../components/PetMenu";
 import SearchForm from "../components/SearchForm";
+import petfinder from "../utils/petfinder";
+import { useDispatch } from "react-redux";
+import { ADD_TO_FAVORITES } from "../utils/actions";
 
 const Search = () => {
-  const [searchResults, setSearchResults] = useState([]);
+  const [pets, setPets] = useState([]);
+  const dispatch = useDispatch();
 
-  const handleSearch = (searchQuery) => {
-    // Implement search logic here. Call a function that retrieves search results based on the search query
-    console.log(searchQuery);
+  const handleSearch = (searchOptions) => {
+    petfinder
+      .search(searchOptions)
+      .then((data) => {
+        setPets(data.animals);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const handleAddToFavorites = (pet) => {
+    dispatch({ type: ADD_TO_FAVORITES, pet });
   };
 
   return (
     <div>
-      <h1>Search for pets</h1>
-      <SearchForm onSearch={handleSearch} />
-      {searchResults.length > 0 ? (
-        <ul>
-          {searchResults.map((result) => (
-            <li key={result.id}>{result.name}</li>
-          ))}
-        </ul>
-      ) : (
-        <p>No results found</p>
-      )}
+      <SearchForm onSubmit={handleSearch} />
+      <PetMenu pets={pets} onAddToFavorites={handleAddToFavorites} />
     </div>
   );
 };
