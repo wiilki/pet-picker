@@ -15,9 +15,9 @@ const headers = {
   'Api-Key': apiKey
 };
 
-async function fetchAnimals(area) {
+async function fetchAnimals(location) {
   // Fetch the animal data from the API
-  const response = await fetch(`${apiUrl}/animals?area=${encodeURIComponent(area)}`, { headers });
+  const response = await fetch(`${apiUrl}/animals?location=${encodeURIComponent(location)}`, { headers });
 
   if (!response.ok) {
     throw new Error(`Failed to retrieve animals: ${response.statusText}`);

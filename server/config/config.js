@@ -4,7 +4,7 @@ const apiKey = '18b8c4dcfabe8ba4eece413f58acdf20739c01a6';
 const animalList = document.getElementById('animal-list');
 
 // Fetch the animal data from the API
-fetch(`${apiUrl}/animals?area=${encodeURIComponent('Your Area')}`, {
+fetch(`${apiUrl}/animals?location=${encodeURIComponent('Your Area')}`, {
   headers: {
     'Api-Key': apiKey
   }

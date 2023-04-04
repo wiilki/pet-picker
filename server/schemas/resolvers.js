@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Pet, Favorites, Category } = require('../models');
+const { User, Animal, Favorites, Category } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -9,7 +9,7 @@ const resolvers = {
       if (context.user) {
         const userData = await User.findOne({ _id: context.user._id })
           .select('-__v -password')
-          .populate('pet')
+          .populate('animal')
           .populate('favorites');
           
         return userData;
@@ -18,24 +18,24 @@ const resolvers = {
       throw new AuthenticationError('Not logged in');
     },
 
-    // Resolve the `pets` query, which returns all pets
-    pets: async () => {
-      const pets = await Pet.find({});
+    // Resolve the `animals` query, which returns all animals
+    animals: async () => {
+      const animals = await Animal.find({});
 
-      return pets;
+      return animals;
     },
 
-    // Resolve the `pet` query, which returns a single pet by ID
-    pet: async (parent, { _id }) => {
-      const pet = await Pet.findById(_id);
+    // Resolve the `animal` query, which returns a single animal by ID
+    animal: async (parent, { _id }) => {
+      const animal = await Animal.findById(_id);
 
-      return pet;
+      return animal;
     },
 
     // Resolve the `favorites` query, which returns the logged-in user's favorites
     favorites: async (parent, args, context) => {
       if (context.user) {
-        const favorites = await Favorites.findOne({ user: context.user._id }).populate('pets');
+        const favorites = await Favorites.findOne({ user: context.user._id }).populate('animals');
 
         return favorites;
       }
@@ -89,43 +89,43 @@ const resolvers = {
       throw new AuthenticationError('Not logged in');
     },
 
-    // Resolve the `addPet` mutation, which adds a new pet
-    addPet: async (parent, { _id,  }, context) => {
+    // Resolve the `addAnimal` mutation, which adds a new animal
+    addAnimal: async (parent, { _id,  }, context) => {
       if (context.user) {
-        const pet = await Pet.create(args);
+        const animal = await Animal.create(args);
 
-        return pet;
+        return animal;
       }
 
       throw new AuthenticationError('Not logged in');
     },
 
-    // Resolve the `updatePet` mutation, which updates a pet's data
-    updatePet: async (parent, { _id, ...args }, context) => {
+    // Resolve the `updateAnimal` mutation, which updates a animal's data
+    updateAnimal: async (parent, { _id, ...args }, context) => {
       if (context.user) {
-        const pet = await Pet.findByIdAndUpdate(_id, args, { new: true });
+        const animal = await Animal.findByIdAndUpdate(_id, args, { new: true });
 
-        return pet;
+        return animal;
       }
   
       throw new AuthenticationError('Not logged in');
     },
   
-    // Resolve the `deletePet` mutation, which deletes a pet by ID
-    deletePet: async (parent, { _id }, context) => {
+    // Resolve the `deleteanimal` mutation, which deletes a animal by ID
+    deleteAnimal: async (parent, { _id }, context) => {
       if (context.user) {
-        const pet = await Pet.findByIdAndDelete(_id);
+        const animal = await Animal.findByIdAndDelete(_id);
   
-        return pet;
+        return animal;
       }
   
       throw new AuthenticationError('Not logged in');
     },
   
-    // Resolve the `addFavorite` mutation, which adds a pet to the logged-in user's favorites
-    addFavorite: async (parent, { petId }, context) => {
+    // Resolve the `addFavorite` mutation, which adds a animal to the logged-in user's favorites
+    addFavorite: async (parent, { animalId }, context) => {
       if (context.user) {
-        const favorites = await Favorites.findOneAndUpdate({ user: context.user._id }, { $addToSet: { pets: petId } }, { new: true });
+        const favorites = await Favorites.findOneAndUpdate({ user: context.user._id }, { $addToSet: { animals: animalId } }, { new: true });
   
         return favorites;
       }
@@ -133,10 +133,10 @@ const resolvers = {
       throw new AuthenticationError('Not logged in');
     },
   
-    // Resolve the `removeFavorite` mutation, which removes a pet from the logged-in user's favorites
-    removeFavorite: async (parent, { petId }, context) => {
+    // Resolve the `removeFavorite` mutation, which removes a animal from the logged-in user's favorites
+    removeFavorite: async (parent, { animalId }, context) => {
       if (context.user) {
-        const favorites = await Favorites.findOneAndUpdate({ user: context.user._id }, { $pull: { pets: petId } }, { new: true });
+        const favorites = await Favorites.findOneAndUpdate({ user: context.user._id }, { $pull: { animal: animalId } }, { new: true });
   
         return favorites;
       }
@@ -146,12 +146,12 @@ const resolvers = {
   },
   
   Favorites: {
-    // Resolve the `pets` field on the Favorites type, which returns an array of pets
-    pets: async ({ pets }) => {
-      const petIds = pets.map(petId => mongoose.Types.ObjectId(petId));
-      const petDocs = await Pet.find({ _id: { $in: petIds } });
+    // Resolve the `animals` field on the Favorites type, which returns an array of animals
+    animals: async ({ animals }) => {
+      const animalIds = animals.map(animalId => mongoose.Types.ObjectId(animalId));
+      const animalDocs = await Animal.find({ _id: { $in: animalIds } });
   
-      return petDocs;
+      return animalDocs;
     }
   }
   };
