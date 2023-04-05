@@ -1,22 +1,30 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { Provider } from 'react-redux';
-import store from './utils/store';
-import Home from './pages/Home';
-import Favorites from './pages/Favorites';
-import Login from './pages/Login';
-import Search from './pages/Search';
-import Signup from './pages/Signup';
-import Nav from './components/Nav';
 
+import Search from './pages/Search';
+import Favorites from './pages/Favorites';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Navbar from './components/Nav';
+
+// Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
-  uri: 'http://localhost:3001/graphql',
+  uri: '/graphql',
 });
 
+// Construct request middleware that will attach the JWT token to every request as an `authorization` header
 const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
   const token = localStorage.getItem('id_token');
+  // return the headers to the context so httpLink can read them
   return {
     headers: {
       ...headers,
@@ -26,6 +34,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const client = new ApolloClient({
+  // Set up our client to execute the `authLink` middleware prior to making the request to our GraphQL API
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
@@ -34,18 +43,35 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <div className="container">
-          <Provider store={store}>
-            <Nav />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/favorites" element={<Favorites />} />
-              <Route path="/search" element={<Search />} />
-            </Routes>
-          </Provider>
-        </div>
+        <>
+          <Navbar />
+          <Routes>
+            <Route 
+              path="/" 
+              element={<Home/>} 
+            />
+            <Route 
+              path="/favorites" 
+              element={<Favorites/>} 
+            />
+             <Route 
+              path="/login" 
+              element={<Login/>} 
+            />
+             <Route 
+              path="/search" 
+              element={<Search/>} 
+            />
+             <Route 
+              path="/signup" 
+              element={<Signup/>} 
+            />
+            <Route 
+              path='*' 
+              element={<h1 className="display-2">Wrong page!</h1>}
+            />
+          </Routes>
+        </>
       </Router>
     </ApolloProvider>
   );

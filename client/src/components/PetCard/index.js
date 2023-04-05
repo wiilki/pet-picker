@@ -1,56 +1,39 @@
 import React from 'react';
-import './index.css';
-import { useDispatch } from 'react-redux';
-import { ADD_TO_FAVORITES } from '../../utils/actions';
+import { Col, Button, Card, } from 'react-bootstrap';
 
-const PetCard = ({ id, name, breed, age, gender, location, image }) => {
-  const dispatch = useDispatch();
+import Auth from '../../utils/auth';
 
-  const handleSaveToFavorites = () => {
-    const newFavoritePet = {
-      id,
-      name,
-      breed,
-      age,
-      gender,
-      location,
-      image
-    };
-    dispatch({
-      type: ADD_TO_FAVORITES,
-      pet: newFavoritePet
-    });
-  };
-
+const PetCard = ({ pet, savedPetIds, handleSavePet }) => {
   return (
-    <div className="pet-card">
-      <div className="card-header">
-        <h2>{name}</h2>
-    
-      </div>
-      <div className="card-body">
-        <img src={image} alt={name} className="pet-image" />
-        <ul className="pet-details">
-          {breed && (
-            <li>
-              <strong>Breed:</strong> {breed}
-            </li>
+    <Col md="4">
+      <Card key={pet.petId} border="dark" className='mb-3'>
+        {pet.image ? (
+          <Card.Img
+            src={pet.image}
+            alt={`Photo of ${pet.name}`}
+            variant="top"
+          />
+        ) : null}
+        <Card.Body>
+          <Card.Title>{pet.name}</Card.Title>
+          <p className="small">Age: {pet.age}</p>
+          <Card.Text>{pet.description}</Card.Text>
+          {Auth.loggedIn() && (
+            <Button
+              disabled={savedPetIds?.some(
+                (savedId) => savedId === pet.petId
+              )}
+              className="btn-block btn-info"
+              onClick={() => handleSavePet(pet.petId)}
+            >
+              {savedPetIds?.some((savedId) => savedId === pet.petId)
+                ? 'Pet Already Saved!'
+                : 'Save This Pet!'}
+            </Button>
           )}
-          <li>
-            <strong>Age:</strong> {age}
-          </li>
-          <li>
-            <strong>Gender:</strong> {gender}
-          </li>
-          <li>
-            <strong>Location:</strong> {location}
-          </li>
-        </ul>
-        <button className="favorite-button" onClick={handleSaveToFavorites}>
-          Save to Favorites
-        </button>
-      </div>
-    </div>
+        </Card.Body>
+      </Card>
+    </Col>
   );
 };
 

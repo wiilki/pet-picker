@@ -1,87 +1,90 @@
-import React, { useEffect } from "react";
-import { useMutation, useQuery } from "@apollo/client";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  ADD_TO_FAVORITES,
-  REMOVE_FROM_FAVORITES,
-  TOGGLE_FAVORITES,
-  UPDATE_FAVORITES,
-} from "../utils/actions";
-import {
-  QUERY_FAVORITE_PETS,
-  REMOVE_FAVORITE_PET,
-} from "../utils/mutations";
+import React from 'react';
+import { Container, Card, Button, Row, Col } from 'react-bootstrap';
+
+import { useQuery, useMutation } from '@apollo/client';
+import { QUERY_ME } from '../utils/queries';
+import { REMOVE_PET } from '../utils/mutations';
+import { removePetId } from '../utils/localStorage';
+
+import Auth from '../utils/auth';
 
 const Favorites = () => {
-  const dispatch = useDispatch();
-  const { favorites, favoritesOpen } = useSelector((state) => state);
+  const { loading, data } = useQuery(QUERY_ME);
+  const [removePet] = useMutation(REMOVE_PET);
 
-  const { loading, data } = useQuery(QUERY_FAVORITE_PETS);
-  const [removeFavoritePet] = useMutation(REMOVE_FAVORITE_PET);
+  const userData = data?.me || {};
 
-  useEffect(() => {
-    if (data) {
-      dispatch({
-        type: UPDATE_FAVORITES,
-        favorites: data.favoritePets,
-      });
-    } else if (!loading) {
-      dispatch({
-        type: UPDATE_FAVORITES,
-        favorites: [],
-      });
+  // create function that accepts the pet's mongo _id value as param and deletes the pet from the database
+  const handleDeletePet = async (petId) => {
+    // get token
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      return false;
     }
-  }, [data, loading, dispatch]);
 
-  const removeFromFavorites = async (petId) => {
     try {
-      const { data } = await removeFavoritePet({
+      const { data } = await removePet({
         variables: { petId },
       });
 
-      dispatch({
-        type: REMOVE_FROM_FAVORITES,
-        petId,
-      });
+      // upon success, remove pet's id from localStorage
+      removePetId(petId);
     } catch (err) {
       console.error(err);
     }
   };
 
-  return (
-    <div className={`favorites ${favoritesOpen && "open"}`}>
-      <div className="favorites-header">
-        <h2>Favorites</h2>
-        <button
-          className="close"
-          onClick={() => dispatch({ type: TOGGLE_FAVORITES })}
-        >
-          Close
-        </button>
-      </div>
+  if (loading) {
+    return <h2>LOADING...</h2>;
+  }
 
-      <div className="favorites-list">
-        {favorites.map((pet) => (
-          <div key={pet.id} className="pet-card">
-            <img
-              src={
-                pet.primary_photo_cropped
-                  ? pet.primary_photo_cropped.small
-                  : "https://via.placeholder.com/150"
-              }
-              alt={`${pet.name}`}
-            />
-            <div>
-              <h3>{pet.name}</h3>
-              <p>{pet.breed}</p>
-              <button onClick={() => removeFromFavorites(pet.id)}>
-                Remove
-              </button>
-            </div>
-          </div>
-        ))}
+  return (
+    <>
+      <div fluid className="text-light bg-dark p-5">
+        <Container>
+          <h1>Viewing {userData.username}'s pets!</h1>
+        </Container>
       </div>
-    </div>
+      <Container>
+        <h2 className='pt-5'>
+          {userData.favorites?.length
+            ? `Viewing ${userData.favorites.length} saved ${userData.favorites.length === 1 ? 'pet' : 'pets'
+            }:`
+            : 'You have no saved pets!'}
+        </h2>
+        <div>
+          <Row>
+            {userData.favorites?.map((pet) => {
+              return (
+                <Col md="4">
+                  <Card key={pet.petId} border="dark">
+                    {pet.image ? (
+                      <Card.Img
+                        src={pet.image}
+                        alt={`The picture of ${pet.name}`}
+                        variant="top"
+                      />
+                    ) : null}
+                    <Card.Body>
+                      <Card.Title>{pet.name}</Card.Title>
+                      <p className="small">Age: {pet.age}</p>
+                      <Card.Text>{pet.description}</Card.Text>
+                      <Button
+                        className="btn-block btn-danger"
+                        onClick={() => handleDeletePet(pet.petId)}
+                      >
+                        Delete this Pet!
+                      </Button>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              );
+            })}
+          </Row>
+        </div>
+      </Container>
+    </>
   );
 };
 
