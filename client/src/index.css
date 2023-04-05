@@ -7,44 +7,75 @@ ul {
 }
 
 body {
-  background-image: url(../public/background.png)
+  background-image: url(../public/background.png);
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-top: 2rem;
-    background-color: burlywood;
-  }
-  
-  h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    margin-left: 39%;
-    background-color: burlywood;
-  }
-  
-  h2 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    background-color: burlywood;
-    margin-left: 42%;
-  }
-  
-  button {
-    font-size: medium;
-      }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+  background-color: burlywood;
+  min-width: 377px;
+  border-radius: 25px;
+}
 
-  .login {
-    font-size: large;
-    margin-left: 30%;
-    font-family: 'sans-serif';
-  }
-.signup-link {
-  font-family: Arial, Helvetica, sans-serif;
+h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  background-color: burlywood;
+}
+
+h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  background-color: burlywood;
+  align-self: center;
+}
+
+.btn-primary {
+  background-color: transparent;
+  border: 2px solid #007bff;
+  color: #007bff;
+  box-shadow: 0 0 10px #007bff;
+  margin: 10px;
+  padding: 0;
+  border-radius: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-width: 160px;
+}
+
+.btn-primary img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.btn-primary:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+button {
+  background-color: transparent;
+  border: 2px solid #ccc;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 20px;
   
 }
 
-
-  
+.login {
+  font-size: large;
+  margin-left: 30%;
+  font-family: "sans-serif";
+}
+.signup-link {
+  font-family: Arial, Helvetica, sans-serif;
+}

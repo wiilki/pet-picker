@@ -17,6 +17,8 @@ const PetCard = ({ pet, savedPetIds, handleSavePet }) => {
         <Card.Body>
           <Card.Title>{pet.name}</Card.Title>
           <p className="small">Age: {pet.age}</p>
+          <p className="small">Gender: {pet.gender}</p>
+          <p className="small">Size: {pet.size}</p>
           <Card.Text>{pet.description}</Card.Text>
           {Auth.loggedIn() && (
             <Button
@@ -27,7 +29,7 @@ const PetCard = ({ pet, savedPetIds, handleSavePet }) => {
               onClick={() => handleSavePet(pet.petId)}
             >
               {savedPetIds?.some((savedId) => savedId === pet.petId)
-                ? 'Pet Already Saved!'
+                ? 'SAVED!'
                 : 'Save This Pet!'}
             </Button>
           )}

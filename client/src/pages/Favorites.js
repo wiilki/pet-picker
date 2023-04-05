@@ -9,11 +9,10 @@ import Auth from '../utils/auth';
 
 const Favorites = () => {
   const { loading, data } = useQuery(QUERY_ME);
-  const userData = data?.me || {};
   const [removePet, { error }] = useMutation(REMOVE_PET);
 
+  const userData = data?.me || {};
 
-  // create function that accepts the pet's mongo _id value as param and deletes the pet from the database
   const handleDeletePet = async (petId) => {
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -60,6 +59,9 @@ const Favorites = () => {
                     <Card.Img variant="top" src={pet.image} alt={`Photo of ${pet.name}`} />
                     <Card.Body>
                       <Card.Title>{pet.name}</Card.Title>
+                      <p className="small">Age: {pet.age}</p>
+                      <p className="small">Gender: {pet.gender}</p>
+                      <p className="small">Size: {pet.size}</p>
                       <Card.Text>{pet.description}</Card.Text>
                       <Button variant="primary" onClick={() => handleDeletePet(pet.petId)}>Remove</Button>
                     </Card.Body>

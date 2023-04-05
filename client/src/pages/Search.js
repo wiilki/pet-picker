@@ -4,6 +4,10 @@ import { useMutation } from '@apollo/client';
 import { SAVE_PET } from '../utils/mutations';
 import { savePetIds, getSavedPetIds } from '../utils/localStorage';
 import PetCard from '../components/PetCard';
+import dogsImage from '../images/dogs.jpg';
+import catsImage from '../images/cats.jpg';
+import rabbitsImage from '../images/rabbits.jpg';
+
 
 import Auth from '../utils/auth';
 
@@ -43,6 +47,8 @@ const SearchPets = () => {
       const petData = animals.map((pet) => ({
         petId: pet.id,
         name: pet.name,
+        gender: pet.gender,
+        size: pet.size,
         age: pet.age,
         description: pet.description,
         image: pet.photos[0]?.medium || '',
@@ -83,14 +89,18 @@ const SearchPets = () => {
         <Container>
           <h1>Search for Pets!</h1>
           <Button onClick={() => handleAnimalType('dog')} variant="primary" size="lg">
+            <img src={dogsImage} alt="Dog" />
             Dog
           </Button>
           <Button onClick={() => handleAnimalType('cat')} variant="primary" size="lg">
+            <img src={catsImage} alt="Cat" />
             Cat
           </Button>
           <Button onClick={() => handleAnimalType('rabbit')} variant="primary" size="lg">
+            <img src={rabbitsImage} alt="Rabbit" />
             Rabbit
           </Button>
+
         </Container>
       </div>
       <Container>
