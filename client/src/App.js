@@ -1,18 +1,21 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { Provider } from 'react-redux';
-import store from './utils/store';
-import Home from './pages/Home';
+
+import Search from './pages/Search';
 import Favorites from './pages/Favorites';
 import Login from './pages/Login';
-import Search from './pages/Search';
 import Signup from './pages/Signup';
-import Nav from './components/Nav';
+import Navbar from './components/Nav';
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:3001/graphql',
+  uri: '/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -34,18 +37,31 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <div className="container">
-          <Provider store={store}>
-            <Nav />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/favorites" element={<Favorites />} />
-              <Route path="/search" element={<Search />} />
-            </Routes>
-          </Provider>
-        </div>
+        <>
+          <Navbar />
+          <Routes>
+            <Route
+              path="/"
+              element={<Search />}
+            />
+            <Route
+              path="/favorites"
+              element={<Favorites />}
+            />
+            <Route
+              path="/login"
+              element={<Login />}
+            />
+            <Route
+              path="/signup"
+              element={<Signup />}
+            />
+            <Route
+              path='*'
+              element={<h1 className="display-2">Wrong page!</h1>}
+            />
+          </Routes>
+        </>
       </Router>
     </ApolloProvider>
   );
