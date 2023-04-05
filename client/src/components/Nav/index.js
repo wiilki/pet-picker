@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Navbar, Nav, Container, Modal, Tab } from 'react-bootstrap';
 import Signup from '../../pages/Signup';
 import Login from '../../pages/Login';
-
+import Favorites from '../../pages/Favorites';
 import Auth from '../../utils/auth';
 
 const AppNavbar = () => {
@@ -26,7 +26,7 @@ const AppNavbar = () => {
               {/* if user is logged in show saved pets and logout */}
               {Auth.loggedIn() ? (
                 <>
-                  <Nav.Link as={Link} to='/saved'>
+                  <Nav.Link as={Link} to='/favorites'>
                     See Your Pets
                   </Nav.Link>
                   <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>

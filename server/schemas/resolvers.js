@@ -13,13 +13,6 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
-    pet: async (parent, args, context) => {
-      if (context.pet) {
-        const petData = await Pet.findOne({ petId: context.pet.petId }).select('-__v -password');
-        return petData;
-      }
-      throw new AuthenticationError('Not logged in');
-    },
   },
 
   Mutation: {

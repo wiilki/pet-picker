@@ -24,19 +24,18 @@ const typeDefs = gql`
     user: User
   }
 
-input PetInput {
-  petId: ID!
-  name: String
-  age: String
-  gender: String
-  size: String
-  description: String
-  image: String
-}
+  input PetInput {
+    petId: ID!
+    name: String
+    age: String
+    gender: String
+    size: String
+    description: String
+    image: String
+  }
 
   type Query {
     me: User
-    pet: Pet
   }
 
   type Mutation {
