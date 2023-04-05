@@ -25,8 +25,7 @@
     width: 300px;
     height: 200px;
     object-fit: cover;
-    margin-right: 1rem;
-    margin-bottom: 1rem;
+    margin: 10px;
   }
   
   .pet-details {
