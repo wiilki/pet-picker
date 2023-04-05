@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries';
 import { REMOVE_PET } from '../utils/mutations';
@@ -9,9 +9,9 @@ import Auth from '../utils/auth';
 
 const Favorites = () => {
   const { loading, data } = useQuery(QUERY_ME);
+  const userData = data?.me || {};
   const [removePet, { error }] = useMutation(REMOVE_PET);
 
-  const userData = data?.me || {};
 
   // create function that accepts the pet's mongo _id value as param and deletes the pet from the database
   const handleDeletePet = async (petId) => {
@@ -47,16 +47,23 @@ const Favorites = () => {
       </div>
       <Container>
         <h2 className='pt-5'>
-          {userData.favorites?.length
-            ? `Viewing ${userData.favorites.length} saved ${userData.favorites.length === 1 ? 'pet' : 'pets'}:`
+          {userData.savedPets?.length
+            ? `Viewing ${userData.savedPets.length} saved ${userData.savedPets.length === 1 ? 'pet' : 'pets'}:`
             : 'You have no saved pets!'}
         </h2>
         <div>
           <Row>
-            {userData.favorites?.map((pet) => {
+            {userData.savedPets?.map((pet) => {
               return (
-                <Col md="4">
-                  <Card key={pet.petId} pet={pet} handleDeletePet={handleDeletePet} />
+                <Col md="4" key={pet.petId}>
+                  <Card>
+                    <Card.Img variant="top" src={pet.image} alt={`Photo of ${pet.name}`} />
+                    <Card.Body>
+                      <Card.Title>{pet.name}</Card.Title>
+                      <Card.Text>{pet.description}</Card.Text>
+                      <Button variant="primary" onClick={() => handleDeletePet(pet.petId)}>Remove</Button>
+                    </Card.Body>
+                  </Card>
                 </Col>
               );
             })}

@@ -33,6 +33,8 @@ export const SAVE_PET = gql`
       savedPets {
         petId
         name
+        gender
+        size
         age
         description
         image
@@ -50,6 +52,8 @@ export const REMOVE_PET = gql`
       savedPets {
         petId
         name
+        gender
+        size
         age
         description
         image
