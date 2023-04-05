@@ -7,31 +7,33 @@ import PetCard from '../components/PetCard';
 import dogsImage from '../images/dogs.jpg';
 import catsImage from '../images/cats.jpg';
 import rabbitsImage from '../images/rabbits.jpg';
-import generateToken from '../utils/petfinder';
 
 
 import Auth from '../utils/auth';
 
 const SearchPets = () => {
+  // create state for holding returned pet data
   const [searchedPets, setSearchedPets] = useState([]);
 
+  // create state to hold saved petId values
   const [savedPetIds, setSavedPetIds] = useState(getSavedPetIds());
 
   const [savePet] = useMutation(SAVE_PET);
 
+  // set up useEffect hook to save `savedPetIds` list to localStorage on component unmount
+  // learn more here: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
   useEffect(() => {
     return () => savePetIds(savedPetIds);
   });
 
-
+  // create function to handle retrieving pet data for the selected animal type
   const handleAnimalType = async (animalType) => {
     try {
-      const token = await generateToken();
       const response = await fetch(
         `https://api.petfinder.com/v2/animals?type=${animalType}`,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJXVGFtZkNTZnFoT3M2enRPNkJOMlVXM1dJZkRiOWlKNmhPdndmbWl2M09yT0NuOG92ZyIsImp0aSI6ImE0NjdkZTgzNjYxMGYwNTY3NTU3MWUwNWRlY2M0MGFjOTQ3MDk1MzhkZmQ0NWJkYmY0ZjJiNjc0MmZmNDU0OTM5ZTRlYTgzYTNmMjg4MjBiIiwiaWF0IjoxNjgwNzM1Njk3LCJuYmYiOjE2ODA3MzU2OTcsImV4cCI6MTY4MDczOTI5Nywic3ViIjoiIiwic2NvcGVzIjpbXX0.HYWXvv-i2Xj7fZGaceagezN8ulU-90AVwZX2TlXSd_qbyEcI3DBZjoh7cTiQ1LBteic78HWCXRwt7T76TGwYXDtRRbR5AGWGWyf_bI42_leIw0T8BilpzdiLoWIAk0u6W7nDw-GPP3Z0WTk2qcuAXddJNoOpExVPEaJFUca8SdSGdFKZtyGkYcYPZbriFCo56L8iAqeAMJbqyfcNRbEp-lF324LeQWjjUn6JzBbIS62gk4OXpFQN7Yes073E9BDfbJTxx1wpXoaxqO_yzFh29hEMgx--3fYaStc5L-xFYIH3AHkot9-snjd1S0FHov_Shm7YR7OCfrcWlUnqg6QdIQ`,
           },
         }
       );
@@ -58,9 +60,12 @@ const SearchPets = () => {
     }
   };
 
+  // create function to handle saving a pet to our database
   const handleSavePet = async (petId) => {
+    // find the pet in `searchedPets` state by the matching id
     const petToSave = searchedPets.find((pet) => pet.petId === petId);
 
+    // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
@@ -120,5 +125,8 @@ const SearchPets = () => {
     </>
   );
 };
+
+
+
 
 export default SearchPets;

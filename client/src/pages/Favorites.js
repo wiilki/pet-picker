@@ -4,7 +4,6 @@ import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries';
 import { REMOVE_PET } from '../utils/mutations';
 import { removePetId } from '../utils/localStorage';
-import generateToken from '../utils/petfinder';
 
 import Auth from '../utils/auth';
 
@@ -16,29 +15,23 @@ const Favorites = () => {
 
   const handleDeletePet = async (petId) => {
     // get token
-    const token = Auth.loggedIn() ? await generateToken() : null;
-  
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
     if (!token) {
       return false;
     }
-  
+
     try {
       const { data } = await removePet({
         variables: { petId },
-        context: {
-          headers: {
-            authorization: `Bearer ${token}`
-          }
-        }
       });
-  
+
       // upon success, remove pet's id from localStorage
       removePetId(petId);
     } catch (err) {
       console.error(err);
     }
   };
-  
 
   if (loading) {
     return <h2>LOADING...</h2>;
