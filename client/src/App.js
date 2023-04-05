@@ -10,7 +10,6 @@ import { setContext } from '@apollo/client/link/context';
 
 import Search from './pages/Search';
 import Favorites from './pages/Favorites';
-import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Navbar from './components/Nav';
@@ -46,28 +45,24 @@ function App() {
         <>
           <Navbar />
           <Routes>
-            <Route 
-              path="/" 
-              element={<Home/>} 
+            <Route
+              path="/"
+              element={<Search />}
             />
-            <Route 
-              path="/favorites" 
-              element={<Favorites/>} 
+            <Route
+              path="/favorites"
+              element={<Favorites />}
             />
-             <Route 
-              path="/login" 
-              element={<Login/>} 
+            <Route
+              path="/login"
+              element={<Login />}
             />
-             <Route 
-              path="/search" 
-              element={<Search/>} 
+            <Route
+              path="/signup"
+              element={<Signup />}
             />
-             <Route 
-              path="/signup" 
-              element={<Signup/>} 
-            />
-            <Route 
-              path='*' 
+            <Route
+              path='*'
               element={<h1 className="display-2">Wrong page!</h1>}
             />
           </Routes>

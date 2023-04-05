@@ -30,5 +30,6 @@ export const QUERY_SINGLE_PET = gql`
       description
       image
   }
+}
 `;
 

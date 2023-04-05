@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Col, Button, Card, Row } from 'react-bootstrap';
+import { Container, Button, Row } from 'react-bootstrap';
 import { useMutation } from '@apollo/client';
 import { SAVE_PET } from '../utils/mutations';
 import { savePetIds, getSavedPetIds } from '../utils/localStorage';
@@ -14,7 +14,7 @@ const SearchPets = () => {
   // create state to hold saved petId values
   const [savedPetIds, setSavedPetIds] = useState(getSavedPetIds());
 
-  const [savePet, { error }] = useMutation(SAVE_PET);
+  const [savePet] = useMutation(SAVE_PET);
 
   // set up useEffect hook to save `savedPetIds` list to localStorage on component unmount
   // learn more here: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
