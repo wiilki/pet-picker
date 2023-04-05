@@ -30,7 +30,9 @@ function Login(props) {
   };
 
   return (
-    <div className="signup-link">
+    < >
+    <body>
+        <div className="signup-link">
       <Link to="/signup">← Go to Signup</Link>
 
       <h2>Login</h2>
@@ -65,6 +67,8 @@ function Login(props) {
         </div>
       </form>
     </div>
+    </body>
+    </>
   );
 }
 

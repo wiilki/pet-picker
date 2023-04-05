@@ -2,25 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
+ul {
+  background-color: burlywood;
+}
+
+body {
+  background-image: url(../public/background.png)
+}
+
 .container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin-top: 2rem;
-    background-color: cadetblue;
+    background-color: burlywood;
   }
   
   h1 {
     font-size: 3rem;
     margin-bottom: 1rem;
-    margin-left: 43%;
-    background-color: cadetblue;
+    margin-left: 39%;
+    background-color: burlywood;
   }
   
   h2 {
     font-size: 2rem;
     margin-bottom: 2rem;
-    background-color: cadetblue;
+    background-color: burlywood;
     margin-left: 42%;
   }
   
