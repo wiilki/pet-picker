@@ -33,7 +33,8 @@ const SearchPets = () => {
         `https://api.petfinder.com/v2/animals?type=${animalType}`,
         {
           headers: {
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJXVGFtZkNTZnFoT3M2enRPNkJOMlVXM1dJZkRiOWlKNmhPdndmbWl2M09yT0NuOG92ZyIsImp0aSI6ImE0NjdkZTgzNjYxMGYwNTY3NTU3MWUwNWRlY2M0MGFjOTQ3MDk1MzhkZmQ0NWJkYmY0ZjJiNjc0MmZmNDU0OTM5ZTRlYTgzYTNmMjg4MjBiIiwiaWF0IjoxNjgwNzM1Njk3LCJuYmYiOjE2ODA3MzU2OTcsImV4cCI6MTY4MDczOTI5Nywic3ViIjoiIiwic2NvcGVzIjpbXX0.HYWXvv-i2Xj7fZGaceagezN8ulU-90AVwZX2TlXSd_qbyEcI3DBZjoh7cTiQ1LBteic78HWCXRwt7T76TGwYXDtRRbR5AGWGWyf_bI42_leIw0T8BilpzdiLoWIAk0u6W7nDw-GPP3Z0WTk2qcuAXddJNoOpExVPEaJFUca8SdSGdFKZtyGkYcYPZbriFCo56L8iAqeAMJbqyfcNRbEp-lF324LeQWjjUn6JzBbIS62gk4OXpFQN7Yes073E9BDfbJTxx1wpXoaxqO_yzFh29hEMgx--3fYaStc5L-xFYIH3AHkot9-snjd1S0FHov_Shm7YR7OCfrcWlUnqg6QdIQ`,
+            Authorization: `Bearer WTamfCSfqhOs6ztO6BN2UW3WIfDb9iJ6hOvwfmiv3OrOCn8ovg&client_secret=yWl76qMZEfocKnKVvziEWgRvdyfjWXtrAdlVB037" https://api.petfinder.com/v2/oauth2/token
+{"token_type":"Bearer","expires_in":3600,"access_token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJXVGFtZkNTZnFoT3M2enRPNkJOMlVXM1dJZkRiOWlKNmhPdndmbWl2M09yT0NuOG92ZyIsImp0aSI6IjViMDhjN2I0NjU4YTQ3MzdjOGUwOThiYzYyZDc5NTg5YTc0NmEzYzdkNzYwZjY2YmRhMjBjYTA4MmU4ZGYyYWYyMTlmNzNiN2QxNDQwZjRjIiwiaWF0IjoxNjgwNzM3MzczLCJuYmYiOjE2ODA3MzczNzMsImV4cCI6MTY4MDc0MDk3Mywic3ViIjoiIiwic2NvcGVzIjpbXX0.TtDaCnBbG5PsFCzklkzgw-VHCayuF-9s8iBKJuBGPDJ8lWOysotMSLuwcTQXUHe5nn9HmwiG_vPXzSBjC5LyKnsDQ8uhz_55pt2sg0qTvFGOZ9-Oxc40i006DIFuCOtaPXHjIulr8MI7mBuj9JfsU1He7ivDhbTHRVFydh-DqD5KXMCbQDBZsgdYHK1jp-hjUkSt_lPuuKbm6YrhEqVNM0vf2GyWTeG8Eml0NjU8JVcTflJx2dTNx2dFkuMimP8-OWkTjjVGQJG95JjiCMp-NH6aVMOa-RuvH6cgHduJpf8Ku6JdT_gkbtm0DadpEWV2DIB9u0_OrQz3Nw4TRjx2uw`,
           },
         }
       );
