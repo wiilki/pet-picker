@@ -1,4 +1,6 @@
-const { Schema } = require('mongoose');
+const mongoose = require('mongoose');
+
+const { Schema } = mongoose;
 
 const petSchema = new Schema({
   name: {
@@ -28,9 +30,14 @@ const petSchema = new Schema({
   description: {
     type: String,
   },
-  idAdopted: {
+  isAdopted: {
     type: Boolean,
   },
+  category: {
+    type: Schema.Types.ObjectId,
+    ref: 'Category',
+    required: true
+  }
 });
 
 const Pet = mongoose.model('Pet', petSchema);

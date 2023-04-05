@@ -4,30 +4,32 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-    // Resolve the `me` query, which returns the logged-in user's data
-    me: async (parent, args, context) => {
-      if (context.user) {
-        const userData = await User.findOne({ _id: context.user._id })
-          .select('-__v -password')
-          .populate('animal')
-          .populate('favorites');
-          
-        return userData;
+    // Resolve the `categories` query, which returns all categories
+    categories: async () => {
+      const categories = await Category.find({});
+
+      return categories;
+    },
+    // Resolve the `pets` query, which returns all pets
+    animals: async (parent, { category, name }) => {
+      const params = {};
+
+      if (category) {
+        params.category = category;
       }
 
-      throw new AuthenticationError('Not logged in');
+      if (name) {
+        params.name = {
+          $regex: name
+        };
+      }
+
+      return await Animal.find(params).populate('category');
     },
 
-    // Resolve the `animals` query, which returns all animals
-    animals: async () => {
-      const animals = await Animal.find({});
-
-      return animals;
-    },
-
-    // Resolve the `animal` query, which returns a single animal by ID
+    // Resolve the `pet` query, which returns a single pet by ID
     animal: async (parent, { _id }) => {
-      const animal = await Animal.findById(_id);
+      const pet = await Animal.findById(_id);
 
       return animal;
     },
@@ -42,55 +44,37 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
+    // Resolve the `me` query, which returns the logged-in user's data
+    user: async (parent, args, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id).populate('category');
 
-    // Resolve the `categories` query, which returns all categories
-    categories: async () => {
-      const categories = await Category.find({});
+        return user;
+      }
 
-      return categories;
+      throw new AuthenticationError('Not logged in');
     }
   },
 
   Mutation: {
-    // Resolve the `login` mutation, which logs in a user
-    login: async (parent, { firstName, lastName, email, password }) => {
-      const user = await User.findOne({ firstName, lastName, email, password });
-
-      if (!user) {
-        throw new AuthenticationError('No profile with this email found!');
-      }
-
-      const correctPassword = await user.isCorrectPassword(password);
-
-      if (!correctPassword) {
-        throw new AuthenticationError('Incorrect password!');
-      }
-
-      const token = signToken(user);
-      return { token, user };
-    },
-
     // Resolve the `addUser` mutation, which adds a new user
-    addUser: async (parent, { firstName, lastName, email, password }) => {
-      const user = await User.create({ firstName, lastName, email, password });
+    addUser: async (parent, args) => {
+      const user = await User.create(args);
       const token = signToken(user);
 
       return { token, user };
     },
-
     // Resolve the `updateUser` mutation, which updates a user's data
     updateUser: async (parent, args, context) => {
       if (context.user) {
-        const updatedUser = await User.findByIdAndUpdate(context.user._id, args, { new: true });
-
-        return updatedUser;
+        return await User.findByIdAndUpdate(context.user._id, args, { new: true });
       }
 
       throw new AuthenticationError('Not logged in');
     },
 
-    // Resolve the `addAnimal` mutation, which adds a new animal
-    addAnimal: async (parent, { _id,  }, context) => {
+    // Resolve the `addPet` mutation, which adds a new pet
+    addPet: async (parent, { _id, ...args  }, context) => {
       if (context.user) {
         const animal = await Animal.create(args);
 
@@ -103,7 +87,7 @@ const resolvers = {
     // Resolve the `updateAnimal` mutation, which updates a animal's data
     updateAnimal: async (parent, { _id, ...args }, context) => {
       if (context.user) {
-        const animal = await Animal.findByIdAndUpdate(_id, args, { new: true });
+        const pet = await Animal.findByIdAndUpdate(_id, args, { new: true });
 
         return animal;
       }
@@ -114,7 +98,7 @@ const resolvers = {
     // Resolve the `deleteanimal` mutation, which deletes a animal by ID
     deleteAnimal: async (parent, { _id }, context) => {
       if (context.user) {
-        const animal = await Animal.findByIdAndDelete(_id);
+        const pet = await Animal.findByIdAndDelete(_id);
   
         return animal;
       }
@@ -142,19 +126,27 @@ const resolvers = {
       }
   
       throw new AuthenticationError('Not logged in');
-    }
-  },
-  
-  Favorites: {
-    // Resolve the `animals` field on the Favorites type, which returns an array of animals
-    animals: async ({ animals }) => {
-      const animalIds = animals.map(animalId => mongoose.Types.ObjectId(animalId));
-      const animalDocs = await Animal.find({ _id: { $in: animalIds } });
-  
-      return animalDocs;
-    }
+    },
+    // Resolve the `login` mutation, which logs in a user
+    login: async (parent, { email, password }) => {
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        throw new AuthenticationError('Incorrect credentials');
+      }
+
+      const correctPw = await user.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw new AuthenticationError('Incorrect credentials');
+      }
+
+      const token = signToken(user);
+
+      return { token, user };
+    },
   }
-  };
+};
   
   module.exports = resolvers;
   

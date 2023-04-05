@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
-export const QUERY_PETS = gql`
-  query getPets($type: String, $breed: String, $location: String) {
-    pets(type: $type, breed: $breed, location: $location) {
+export const QUERY_ANIMALS = gql`
+  query getAnimals($type: String, $breed: String, $location: String) {
+    animals(category: $category) {
       id
       name
       type
@@ -19,9 +19,9 @@ export const QUERY_PETS = gql`
   }
 `;
 
-export const QUERY_PET = gql`
-  query getPet($petId: ID!) {
-    pet(petId: $petId) {
+export const QUERY_ALL_ANIMAL = gql`
+  {
+    animals {
       id
       name
       type
@@ -38,7 +38,7 @@ export const QUERY_PET = gql`
   }
 `;
 
-export const QUERY_FAVORITE_PETS = gql`
+export const QUERY_FAVORITE_ANIMAL = gql`
   query {
     favoritePets {
       id
@@ -57,10 +57,20 @@ export const QUERY_FAVORITE_PETS = gql`
   }
 `;
 
+export const QUERY_CATEGORIES = gql`
+  {
+    categories {
+      _id
+      name
+    }
+  }
+`;
+
 export const QUERY_USER = gql`
   {
     user {
-      username
+      firstName
+      lastName
       favoritePets {
         id
         name
