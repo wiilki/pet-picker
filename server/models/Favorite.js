@@ -1,25 +1,19 @@
-const { Schema } = require('mongoose');
+const mongoose = require('mongoose');
 
-const favoriteSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  breed: {
-    type: String,
-  },
-  gender: {
-    type: String,
-  },
-  age: {
-    type: Number,
-  },
-  category: {
+const { Schema } = mongoose;
+
+const favoritesSchema = new Schema({
+  animal: [{
     type: Schema.Types.ObjectId,
-    ref: 'Category',
-    required: true,
-  },
+    ref: 'Animal',
+    required: true
+  }],
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
-module.exports = favoriteSchema;
+const Favorites = mongoose.model('Favorites', favoritesSchema);
+
+module.exports = Favorites;

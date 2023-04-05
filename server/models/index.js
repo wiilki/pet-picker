@@ -1,22 +1,6 @@
-const Users = require('./Users');
-const Pet = require('./Pet')
-const Favorite = require('./Favorite')
+const User = require('./User');
+const Animal = require('./Animal');
 const Category = require('./Category');
-const Chat = require('./Chat')
-const mongoose = require('mongoose');
+const Favorites = require('./Favorites');
 
-mongoose.connect('mongodb://localhost:3000/pet-picker', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-  useFindAndModify: false
-});
-
-const db = mongoose.connection;
-
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', () => {
-  console.log('Database connected');
-});
-
-module.exports = { Users, Animal, Favorite, Category, Chat };
+module.exports = { User, Animal, Category, Favorites };

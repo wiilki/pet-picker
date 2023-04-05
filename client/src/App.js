@@ -5,14 +5,14 @@ import { setContext } from '@apollo/client/link/context';
 import { Provider } from 'react-redux';
 import store from './utils/store';
 import Home from './pages/Home';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
 import Favorites from './pages/Favorites';
+import Login from './pages/Login';
 import Search from './pages/Search';
+import Signup from './pages/Signup';
 import Nav from './components/Nav';
 
 const httpLink = createHttpLink({
-  uri: '/graphql',
+  uri: 'http://localhost:3001/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -32,18 +32,22 @@ const client = new ApolloClient({
 
 function App() {
   return (
-    <div className="App">
-      
-      
-      
-      
-      
-      {
-        currentForm === 'login' ? <Login onFormSwitch={toggleForm} /> : <Signup onFormSwitch={toggleForm} />
-       
-      }
-    </div>
-    
+    <ApolloProvider client={client}>
+      <Router>
+        <div className="container">
+          <Provider store={store}>
+            <Nav />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/favorites" element={<Favorites />} />
+              <Route path="/search" element={<Search />} />
+            </Routes>
+          </Provider>
+        </div>
+      </Router>
+    </ApolloProvider>
   );
 }
 
