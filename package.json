@@ -1,5 +1,5 @@
 {
-  "name": "petpicker",
+  "name": "petpicker-app",
   "version": "1.0.0",
   "description": "",
   "main": "server/server.js",
@@ -19,16 +19,11 @@
     "tailwindcss": "^3.3.0"
   },
   "dependencies": {
-<<<<<<< HEAD
     "apollo-server-express": "^3.6.2",
-    "bcrypt": "^4.0.1",
     "cors": "^2.8.5",
     "express": "^4.17.2",
     "graphql": "^16.3.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.9.2"
-=======
-    "concurrently": "^5.1.0"
->>>>>>> c4d9c5b2eb27238adfbedbe4bfe12d33e2888cea
   }
 }

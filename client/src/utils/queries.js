@@ -1,128 +1,35 @@
 import { gql } from '@apollo/client';
 
-export const QUERY_ANIMALS = gql`
-  query getAnimals($type: String, $breed: String, $location: String) {
-    animals(category: $category) {
-      id
-      name
-      type
-      breed
-      age
-      gender
-      location
-      description
-      isAdopted
-      primary_photo_cropped {
-        small
-      }
-    }
-  }
-`;
-
-export const QUERY_ALL_ANIMAL = gql`
+export const QUERY_ME = gql`
   {
-    animals {
-      id
-      name
-      type
-      breed
-      age
-      gender
-      location
-      description
-      isAdopted
-      photos {
-        small
-      }
-    }
-  }
-`;
-
-export const QUERY_FAVORITE_ANIMAL = gql`
-  query {
-    favoritePets {
-      id
-      name
-      type
-      breed
-      age
-      gender
-      location
-      description
-      isAdopted
-      primary_photo_cropped {
-        small
-      }
-    }
-  }
-`;
-
-export const QUERY_CATEGORIES = gql`
-  {
-    categories {
+    me {
       _id
-      name
-    }
-  }
-`;
-
-export const QUERY_USER = gql`
-  {
-    user {
-      firstName
-      lastName
-      favoritePets {
-        id
+      username
+      email
+      savedPets {
+        petId
         name
-        type
-        breed
-        age
         gender
-        location
+        size
+        age
         description
-        isAdopted
-        primary_photo_cropped {
-          small
-        }
+        image
       }
     }
   }
 `;
 
-export const MUTATION_ADD_FAVORITE_PET = gql`
-  mutation addFavoritePet($petId: ID!) {
-    addFavoritePet(petId: $petId) {
-      id
+export const QUERY_SINGLE_PET = gql`
+  {
+    pet {
+      petId
       name
-      type
-      breed
-      age
       gender
-      location
+      size
+      age
       description
-      isAdopted
-      primary_photo_cropped {
-        small
-      }
-    }
+      image
   }
+}
 `;
 
-export const MUTATION_REMOVE_FAVORITE_PET = gql`
-  mutation removeFavoritePet($petId: ID!) {
-    removeFavoritePet(petId: $petId) {
-      id
-      name
-      type
-      breed
-      age
-      gender
-      location
-      description
-      isAdopted
-      primary_photo_cropped {
-        small
-      }
-    }
-  }
-`;
