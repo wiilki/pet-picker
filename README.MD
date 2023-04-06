@@ -23,7 +23,7 @@
 
  ## Usage
  Mock up image of our site:
- ![Mockup](/client/public/mockup.png)
+![portfolio-15](https://user-images.githubusercontent.com/114313171/230281631-e59ecb4d-7767-4389-8b1e-a6324954c539.jpg)
 
  ## Installation Instructions
  * This application should be used via web interface, no installation required.
