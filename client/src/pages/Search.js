@@ -9,8 +9,8 @@ import catsImage from '../images/cats.jpg';
 import rabbitsImage from '../images/rabbits.jpg';
 import Auth from '../utils/auth';
 
-const CLIENT_ID = '9gSueaI6Vk4On9SsUSxGAVdYH4CfunaBEaGmRDLzlLTSALvP01';
-const CLIENT_SECRET = 'E0CmkPvQyEa5jZcI4Nxl73DvYtAaxAhE7Zj2kx1E';
+const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
+const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
 
 const SearchPets = () => {
   // create state for holding returned pet data
