@@ -9,7 +9,7 @@
 6. [License](#license)
 7. [Contact Me](#contact-me)
 
-##Project Description
+## Project Description
 * This application is built using react, graphql, Nodejs
  
 * As a user, I want to be able to visit a Home page that contains a login/Signup option...
