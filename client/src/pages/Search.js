@@ -7,9 +7,12 @@ import PetCard from '../components/PetCard';
 import dogsImage from '../images/dogs.jpg';
 import catsImage from '../images/cats.jpg';
 import rabbitsImage from '../images/rabbits.jpg';
-
-
 import Auth from '../utils/auth';
+import dotenv from 'dotenv';
+dotenv.config();
+
+const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
+const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
 
 const SearchPets = () => {
   // create state for holding returned pet data
@@ -26,24 +29,39 @@ const SearchPets = () => {
     return () => savePetIds(savedPetIds);
   });
 
-  // create function to handle retrieving pet data for the selected animal type
   const handleAnimalType = async (animalType) => {
     try {
-      const response = await fetch(
+      // get access token from the API
+      const tokenResponse = await fetch('https://api.petfinder.com/v2/oauth2/token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `grant_type=client_credentials&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`,
+      });
+  
+      if (!tokenResponse.ok) {
+        throw new Error('Failed to obtain access token');
+      }
+  
+      const { access_token } = await tokenResponse.json();
+  
+      // use the access token to fetch pet data
+      const petResponse = await fetch(
         `https://api.petfinder.com/v2/animals?type=${animalType}`,
         {
           headers: {
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJXVGFtZkNTZnFoT3M2enRPNkJOMlVXM1dJZkRiOWlKNmhPdndmbWl2M09yT0NuOG92ZyIsImp0aSI6ImE0NjdkZTgzNjYxMGYwNTY3NTU3MWUwNWRlY2M0MGFjOTQ3MDk1MzhkZmQ0NWJkYmY0ZjJiNjc0MmZmNDU0OTM5ZTRlYTgzYTNmMjg4MjBiIiwiaWF0IjoxNjgwNzM1Njk3LCJuYmYiOjE2ODA3MzU2OTcsImV4cCI6MTY4MDczOTI5Nywic3ViIjoiIiwic2NvcGVzIjpbXX0.HYWXvv-i2Xj7fZGaceagezN8ulU-90AVwZX2TlXSd_qbyEcI3DBZjoh7cTiQ1LBteic78HWCXRwt7T76TGwYXDtRRbR5AGWGWyf_bI42_leIw0T8BilpzdiLoWIAk0u6W7nDw-GPP3Z0WTk2qcuAXddJNoOpExVPEaJFUca8SdSGdFKZtyGkYcYPZbriFCo56L8iAqeAMJbqyfcNRbEp-lF324LeQWjjUn6JzBbIS62gk4OXpFQN7Yes073E9BDfbJTxx1wpXoaxqO_yzFh29hEMgx--3fYaStc5L-xFYIH3AHkot9-snjd1S0FHov_Shm7YR7OCfrcWlUnqg6QdIQ`,
+            Authorization: `Bearer ${access_token}`,
           },
         }
       );
-
-      if (!response.ok) {
-        throw new Error('something went wrong!');
+  
+      if (!petResponse.ok) {
+        throw new Error('Failed to fetch pet data');
       }
-
-      const { animals } = await response.json();
-
+  
+      const { animals } = await petResponse.json();
+  
       const petData = animals.map((pet) => ({
         petId: pet.id,
         name: pet.name,
@@ -53,12 +71,13 @@ const SearchPets = () => {
         description: pet.description,
         image: pet.photos[0]?.medium || '',
       }));
-
+  
       setSearchedPets(petData);
     } catch (err) {
       console.error(err);
     }
   };
+  
 
   // create function to handle saving a pet to our database
   const handleSavePet = async (petId) => {
