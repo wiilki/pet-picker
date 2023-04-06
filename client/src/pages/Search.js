@@ -8,11 +8,9 @@ import dogsImage from '../images/dogs.jpg';
 import catsImage from '../images/cats.jpg';
 import rabbitsImage from '../images/rabbits.jpg';
 import Auth from '../utils/auth';
-import dotenv from 'dotenv';
-dotenv.config();
 
-const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
-const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
+const CLIENT_ID = '9gSueaI6Vk4On9SsUSxGAVdYH4CfunaBEaGmRDLzlLTSALvP01';
+const CLIENT_SECRET = 'E0CmkPvQyEa5jZcI4Nxl73DvYtAaxAhE7Zj2kx1E';
 
 const SearchPets = () => {
   // create state for holding returned pet data
