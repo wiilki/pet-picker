@@ -29,10 +29,7 @@
  * This application should be used via web interface, no installation required.
 
  ## How to Use
- * To deploy application, go to [Deployed Sit](https://pet-picker-mern.herokuapp.com/)
+ * To deploy application, go to [Deployed Site](https://pet-picker-mern.herokuapp.com/)
 
 ## How to contribute
-* Contact us on githib.
-
-## Testing
-None
+* Contact us on github.
