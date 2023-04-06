@@ -29,7 +29,7 @@
  * This application should be used via web interface, no installation required.
 
  ## How to Use
- (Deployed Site)
+ * To deploy application, go to [Deployed Sit](https://pet-picker-mern.herokuapp.com/)
 
 ## How to contribute
 * Contact us on githib.
