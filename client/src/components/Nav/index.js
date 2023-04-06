@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Navbar, Nav, Container, Modal, Tab } from 'react-bootstrap';
 import Signup from '../../pages/Signup';
 import Login from '../../pages/Login';
-import Favorites from '../../pages/Favorites';
 import Auth from '../../utils/auth';
 
 const AppNavbar = () => {
