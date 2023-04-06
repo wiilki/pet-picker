@@ -1,4 +1,4 @@
-# Pet Finder
+# Pet Picker
 
 ## Table of Contents
 1. [Project Description](#project-description)
