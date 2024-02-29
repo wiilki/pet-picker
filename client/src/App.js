@@ -12,7 +12,9 @@ import Search from './pages/Search';
 import Favorites from './pages/Favorites';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Navbar from './components/Nav';
+import Navbar from './components/Nav/Navbar';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const httpLink = createHttpLink({
   uri: '/graphql',

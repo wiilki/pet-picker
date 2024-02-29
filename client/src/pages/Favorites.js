@@ -9,7 +9,7 @@ import Auth from '../utils/auth';
 
 const Favorites = () => {
   const { loading, data } = useQuery(QUERY_ME);
-  const [removePet, { error }] = useMutation(REMOVE_PET);
+  const [removePet] = useMutation(REMOVE_PET);
 
   const userData = data?.me || {};
 
