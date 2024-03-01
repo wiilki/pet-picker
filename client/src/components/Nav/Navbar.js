@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Navbar, Nav, Container, Modal, Tab } from 'react-bootstrap';
-import Signup from '../../pages/Signup';
-import Login from '../../pages/Login';
+import { Navbar, Nav, Container } from 'react-bootstrap';
 import Auth from '../../utils/auth';
-import '../../styles/navbar.css'
+import AuthModal from './AuthModal'; // Update this path as necessary
+import '../../styles/navbar.css';
 
 const NavigationBar = () => {
   const [showModal, setShowModal] = useState(false);
@@ -36,36 +35,8 @@ const NavigationBar = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Modal
-        size='lg'
-        show={showModal}
-        onHide={() => setShowModal(false)}
-        aria-labelledby='signup-modal'>
-        <Tab.Container defaultActiveKey='login'>
-          <Modal.Header closeButton>
-            <Modal.Title id='signup-modal'>
-              <Nav variant='pills'>
-                <Nav.Item>
-                  <Nav.Link eventKey='login'>Login</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                  <Nav.Link eventKey='signup'>Sign Up</Nav.Link>
-                </Nav.Item>
-              </Nav>
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Tab.Content>
-              <Tab.Pane eventKey='login'>
-                <Login handleModalClose={() => setShowModal(false)} />
-              </Tab.Pane>
-              <Tab.Pane eventKey='signup'>
-                <Signup handleModalClose={() => setShowModal(false)} />
-              </Tab.Pane>
-            </Tab.Content>
-          </Modal.Body>
-        </Tab.Container>
-      </Modal>
+      {/* AuthModal component is now used here */}
+      <AuthModal showModal={showModal} setShowModal={setShowModal} />
     </>
   );
 };

@@ -11,6 +11,8 @@ const Header = () => {
   return (
     <>
       <Navbar setShowModal={setShowModal} />
+
+      {/* Modal for Login/Sign up window */}
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Tab.Container defaultActiveKey='login'>
           <Modal.Header closeButton>
