@@ -1,21 +1,21 @@
-// Use this to decode a token and get the user's information out of it
+// use this to decode a token and get the user's information out of it
 import decode from 'jwt-decode';
 
-// Create a new class to instantiate for a user
+// create a new class to instantiate for a user
 class AuthService {
-  // Get user data
+  // get user data
   getProfile() {
     return decode(this.getToken());
   }
 
-  // Check if the user's logged in
+  // check if user's logged in
   loggedIn() {
     // Checks if there is a saved token and it's still valid
     const token = this.getToken();
-    return !!token && !this.isTokenExpired(token);
+    return !!token && !this.isTokenExpired(token); // handwaiving here
   }
 
-  // Check if the token is expired
+  // check if token is expired
   isTokenExpired(token) {
     try {
       const decoded = decode(token);
@@ -41,13 +41,9 @@ class AuthService {
   logout() {
     // Clear user token and profile data from localStorage
     localStorage.removeItem('id_token');
-    // This will reload the page and reset the state of the application
+    // this will reload the page and reset the state of the application
     window.location.assign('/');
   }
 }
 
-// Assign the AuthService instance to a variable
-const authService = new AuthService();
-
-// Export the variable
-export default authService;
+export default new AuthService();

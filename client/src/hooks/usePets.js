@@ -7,97 +7,82 @@ import { savePetIds, getSavedPetIds } from '../utils/localStorage';
 import he from 'he';
 
 export const usePets = () => {
-    const [selectedAnimalType, setSelectedAnimalType] = useState('');
-    const [displayedPets, setDisplayedPets] = useState([]);
-    const [petBuffer, setPetBuffer] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [loading, setLoading] = useState(false);
-    const [savedPetIds, setSavedPetIds] = useState(getSavedPetIds());
+  const [selectedAnimalType, setSelectedAnimalType] = useState('');
+  const [searchedPets, setSearchedPets] = useState([]); // Update to manage searched pets
+  const [displayedPets, setDisplayedPets] = useState([]);
+  const [petBuffer, setPetBuffer] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [savedPetIds, setSavedPetIds] = useState(getSavedPetIds());
+  const [selectedGender, setSelectedGender] = useState('');
 
-    const [savePet] = useMutation(SAVE_PET);
+  const [savePet] = useMutation(SAVE_PET);
 
-    useEffect(() => {
-        savePetIds(savedPetIds);
-    }, [savedPetIds]);
+  useEffect(() => {
+    savePetIds(savedPetIds);
+  }, [savedPetIds]);
 
-    const fetchAndDisplayPets = async (animalType = selectedAnimalType, page = 1, fromLoadMore = false) => {
-        setLoading(true);
-        let fetchedPetsCount = 0;
-        let attempts = 0;
-        const maxAttempts = 5;
-        let newPets = [];
-        const targetCount = animalType === 'rabbit' ? 20 : 50;
+  const fetchAndDisplayPets = async (type = '', size = '', age = '', gender = '', page = 1, fromLoadMore = false) => {
+    setLoading(true);
+    try {
+      const { access_token } = await fetchToken(process.env.REACT_APP_CLIENT_ID, process.env.REACT_APP_CLIENT_SECRET);
+      const fetchedData = await fetchPets(type, access_token, page, size, age, gender);
+      const animalsWithImages = fetchedData.animals.filter(animal => animal.photos.length > 0);
 
-        while (fetchedPetsCount < targetCount && attempts < maxAttempts) {
-            try {
-                const { access_token } = await fetchToken(process.env.REACT_APP_CLIENT_ID, process.env.REACT_APP_CLIENT_SECRET);
-                const limit = animalType === 'rabbit' ? 100 : 1000 + (attempts * 50);
-                const fetchedData = await fetchPets(animalType, access_token, limit, page + attempts);
-                const animalsWithImages = fetchedData.animals.filter(animal => animal.photos.length > 0);
+      const newPets = animalsWithImages.map(animal => ({
+        petId: animal.id,
+        name: animal.name,
+        gender: animal.gender,
+        size: animal.size,
+        age: animal.age,
+        description: he.decode(animal.description || "No description available."),
+        image: animal.photos[0]?.medium || '',
+      }));
 
-                newPets.push(...animalsWithImages.map(animal => ({
-                    petId: animal.id,
-                    name: animal.name,
-                    gender: animal.gender,
-                    size: animal.size,
-                    age: animal.age,
-                    description: he.decode(animal.description || "No description available."),
-                    image: animal.photos[0]?.medium || '',
-                })));
+      if (fromLoadMore || petBuffer.length < 50) {
+        setDisplayedPets(currentDisplayedPets => [...currentDisplayedPets, ...newPets]);
+      } else {
+        setDisplayedPets(newPets);
+      }
 
-                fetchedPetsCount = newPets.length;
-                attempts += 1;
-            } catch (err) {
-                console.error(err);
-                break;
-            }
-        }
+      // Update searchedPets state here
+      setSearchedPets(newPets); // This should reflect the current search result
+      setPetBuffer(animalsWithImages);
+      setCurrentPage(page + 1);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-        if (newPets.length >= targetCount) {
-            if (!fromLoadMore || petBuffer.length < targetCount) {
-                setDisplayedPets(newPets.slice(0, targetCount));
-                setPetBuffer(newPets.slice(targetCount));
-            } else {
-                setDisplayedPets(petBuffer.slice(0, targetCount));
-                setPetBuffer(petBuffer.slice(targetCount).concat(newPets));
-            }
-        } else {
-            setDisplayedPets(newPets);
-        }
+  const handleLoadMore = async () => {
+    await fetchAndDisplayPets(selectedAnimalType, currentPage, selectedGender);
+  };
 
-        setLoading(false);
-        setCurrentPage(page + attempts - 1);
-    };
+  const handleAnimalType = async (type) => {
+    setSelectedAnimalType(type);
+    await fetchAndDisplayPets(type, '', '', selectedGender);
+  };
 
-    const handleLoadMore = async () => {
-        if (petBuffer.length >= 50) {
-            setDisplayedPets(currentDisplayedPets => [...currentDisplayedPets, ...petBuffer.slice(0, 50)]);
-            setPetBuffer(currentBuffer => currentBuffer.slice(50));
-        } else {
-            const nextPage = currentPage + 1;
-            setCurrentPage(nextPage);
-            await fetchAndDisplayPets(selectedAnimalType, nextPage, true);
-        }
-    };
+  const handleSavePet = async (petId) => {
+    const petToSave = displayedPets.find((pet) => pet.petId === petId);
+    if (!Auth.loggedIn() || !petToSave) return false;
 
-    const handleAnimalType = async (animalType) => {
-        setSelectedAnimalType(animalType);
-        await fetchAndDisplayPets(animalType);
-    };
+    try {
+      await savePet({
+        variables: { petData: { petId: petToSave.petId, name: petToSave.name, gender: petToSave.gender, size: petToSave.size, age: petToSave.age, description: petToSave.description, image: petToSave.image } },
+      });
+      setSavedPetIds((currentIds) => [...currentIds, petToSave.petId]);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-    const handleSavePet = async (petId) => {
-        const petToSave = displayedPets.find((pet) => pet.petId === petId);
-        if (!Auth.loggedIn() || !petToSave) return false;
+  const handleGenderChange = async (gender) => {
+    setSelectedGender(gender);
+    await fetchAndDisplayPets(selectedAnimalType, '', '', gender);
+  };
 
-        try {
-            await savePet({
-                variables: { petData: { petId: petToSave.petId, name: petToSave.name, gender: petToSave.gender, size: petToSave.size, age: petToSave.age, description: petToSave.description, image: petToSave.image } },
-            });
-            setSavedPetIds((currentIds) => [...currentIds, petToSave.petId]);
-        } catch (err) {
-            console.error(err);
-        }
-    };
-
-    return { displayedPets, handleLoadMore, handleAnimalType, handleSavePet, loading, savedPetIds };
+  return { searchedPets, displayedPets, handleLoadMore, handleAnimalType, handleSavePet, loading, savedPetIds, handleGenderChange };
 };

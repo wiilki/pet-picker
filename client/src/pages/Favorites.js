@@ -1,22 +1,20 @@
 import React from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { useQuery, useMutation } from '@apollo/client';
-import { usePets } from '../hooks/usePets';
 import { QUERY_ME } from '../utils/queries';
 import { REMOVE_PET } from '../utils/mutations';
 import { removePetId } from '../utils/localStorage';
+
 import Auth from '../utils/auth';
-import PetCard from '../components/PetCard';
-import '../styles/petcard.css';
 
 const Favorites = () => {
-  const { handleSavePet, savedPetIds } = usePets();
   const { loading, data } = useQuery(QUERY_ME);
   const [removePet] = useMutation(REMOVE_PET);
 
   const userData = data?.me || {};
 
   const handleDeletePet = async (petId) => {
+    // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
@@ -24,11 +22,11 @@ const Favorites = () => {
     }
 
     try {
-      await removePet({
+      const { data } = await removePet({
         variables: { petId },
       });
 
-      // Upon success, remove pet's id from localStorage
+      // upon success, remove pet's id from localStorage
       removePetId(petId);
     } catch (err) {
       console.error(err);
@@ -41,7 +39,7 @@ const Favorites = () => {
 
   return (
     <>
-      <div className="text-light bg-dark p-5">
+      <div fluid="true" className="text-light bg-dark p-5">
         <Container>
           <h1>Viewing {userData.username}'s pets!</h1>
         </Container>
@@ -52,22 +50,27 @@ const Favorites = () => {
             ? `Viewing ${userData.savedPets.length} saved ${userData.savedPets.length === 1 ? 'pet' : 'pets'}:`
             : 'You have no saved pets!'}
         </h2>
-        <Row>
-          {userData.savedPets?.map((pet) => (
-            <Col md="4" key={pet.petId}>
-              {/* Render PetCard component */}
-              <PetCard
-                pet={pet}
-                savedPetIds={savedPetIds}
-                handleSavePet={() => handleSavePet(pet.petId)}
-              />
-              {/* Render "Remove" button below the PetCard */}
-              <Button variant="danger" className="mt-2" onClick={() => handleDeletePet(pet.petId)}>
-                Remove
-              </Button>
-            </Col>
-          ))}
-        </Row>
+        <div>
+          <Row>
+            {userData.savedPets?.map((pet) => {
+              return (
+                <Col md="4" key={pet.petId}>
+                  <Card>
+                    <Card.Img variant="top" src={pet.image} alt={`Photo of ${pet.name}`} />
+                    <Card.Body>
+                      <Card.Title>{pet.name}</Card.Title>
+                      <p className="small">Age: {pet.age}</p>
+                      <p className="small">Gender: {pet.gender}</p>
+                      <p className="small">Size: {pet.size}</p>
+                      <Card.Text>{pet.description}</Card.Text>
+                      <Button variant="primary" onClick={() => handleDeletePet(pet.petId)}>Remove</Button>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              );
+            })}
+          </Row>
+        </div>
       </Container>
     </>
   );

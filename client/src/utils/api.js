@@ -12,10 +12,22 @@ export const fetchToken = async () => {
     return response.json();
 };
 
-export const fetchPets = async (animalType, accessToken, page = 1) => {
-  const response = await fetch(`https://api.petfinder.com/v2/animals?type=${animalType}&limit=50&page=${page}`, {
+export const fetchPets = async ({ species, size, age, gender }, accessToken, page = 1) => {
+  const queryParams = new URLSearchParams({
+    type: species,
+    size: size,
+    age: age,
+    gender: gender,
+    limit: 50,
+    page: page
+  });
+
+  const response = await fetch(`https://api.petfinder.com/v2/animals?${queryParams}`, {
     headers: { Authorization: `Bearer ${accessToken}` },
   });
+
   if (!response.ok) throw new Error('Failed to fetch pet data');
   return response.json();
 };
+
+
