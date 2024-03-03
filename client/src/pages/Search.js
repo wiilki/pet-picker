@@ -18,7 +18,7 @@ const Search = () => {
           <AnimalTypeSelector handleSearch={handleSearch} />
         </Container>
       </div>
-      <Container>
+      <div className='display-search-container'>
         <Row>
           {searchedPets.map((pet) => (
             <PetCard
@@ -30,7 +30,7 @@ const Search = () => {
             />
           ))}
         </Row>
-      </Container>
+      </div>
     </>
   );
 };

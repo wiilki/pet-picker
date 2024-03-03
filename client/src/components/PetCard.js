@@ -16,7 +16,15 @@ const PetCard = ({ pet, savedPetIds, handleSavePet, handleDeletePet, isFavorite 
 
   return (
     <>
-      <Col md="4" onClick={handleCardClick} style={{ cursor: 'pointer' }} className='petcard-container'>
+      <Col
+        xl={3}
+        lg={4}
+        md={6}
+        sm={12}
+        onClick={handleCardClick}
+        style={{ cursor: 'pointer' }}
+        className='petcard-container'>
+
         <Card key={pet.petId} border="dark" className='mb-3 pet-card'>
           {pet.image ? (
             <Card.Img

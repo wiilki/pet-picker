@@ -13,7 +13,7 @@ const AnimalTypeSelector = ({ handleSearch }) => {
   };
 
   return (
-    <div className="d-flex justify-content-center mb-3">
+    <div className="d-flex justify-content-center">
       <div className='search-bar-container'>
         <Dropdown className="mx-2">
           <Dropdown.Toggle variant="primary" size="sm" className='search-bar-buttons'>
