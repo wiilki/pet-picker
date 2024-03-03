@@ -40,7 +40,7 @@ export const usePets = () => {
         image: animal.photos[0]?.medium || '',
       }));
 
-      if (fromLoadMore || petBuffer.length < 50) {
+      if (fromLoadMore || petBuffer.length < 100) {
         setDisplayedPets(currentDisplayedPets => [...currentDisplayedPets, ...newPets]);
       } else {
         setDisplayedPets(newPets);

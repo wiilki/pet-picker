@@ -3,9 +3,10 @@ import { Container, Row } from 'react-bootstrap';
 import PetCard from '../components/PetCard';
 import { usePets } from '../hooks/usePets';
 import AnimalTypeSelector from '../components/AnimalTypeSelector';
+import BackToTop from '../components/BackToTop';
 
 const Search = () => {
-  const { searchedPets, savedPetIds, handleAnimalType, handleSavePet , handleDeletePet} = usePets();
+  const { searchedPets, savedPetIds, handleAnimalType, handleSavePet, handleDeletePet } = usePets();
 
   const handleSearch = (type, size, age, gender) => {
     handleAnimalType({ species: type, size, age, gender });
@@ -18,7 +19,7 @@ const Search = () => {
           <AnimalTypeSelector handleSearch={handleSearch} />
         </Container>
       </div>
-      <Container>
+      <div className='display-search-container'>
         <Row>
           {searchedPets.map((pet) => (
             <PetCard
@@ -30,7 +31,8 @@ const Search = () => {
             />
           ))}
         </Row>
-      </Container>
+      </div>
+      <BackToTop />
     </>
   );
 };

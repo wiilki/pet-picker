@@ -1,10 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Col, Card, Modal } from 'react-bootstrap';
 import PetDetailsCard from './PetDetailsCard';
 import '../styles/petcard.css';
 
-const PetCard = ({ pet, savedPetIds, handleSavePet, handleDeletePet }) => { // Add handleDeletePet to the props
+const PetCard = ({ pet, savedPetIds, handleSavePet, handleDeletePet, isFavorite }) => {
   const [showModal, setShowModal] = useState(false);
+  const [isVisible, setIsVisible] = useState(false); // State to track visibility
+  const cardRef = useRef(); // Reference to the card
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // When the card comes into view, set isVisible to true
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(cardRef.current); // Stop observing once visible
+        }
+      },
+      {
+        rootMargin: '100px', // Load a bit before the card comes into viewport
+      }
+    );
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+
+    return () => {
+      if (cardRef.current) {
+        observer.unobserve(cardRef.current);
+      }
+    };
+  }, [cardRef]);
 
   const handleCardClick = () => {
     setShowModal(true);
@@ -16,14 +43,24 @@ const PetCard = ({ pet, savedPetIds, handleSavePet, handleDeletePet }) => { // A
 
   return (
     <>
-      <Col md="4" onClick={handleCardClick} style={{ cursor: 'pointer' }} className='petcard-container'>
+      <Col
+        xl={3}
+        lg={4}
+        md={6}
+        sm={12}
+        ref={cardRef} // Attach the ref to the Col component
+        onClick={handleCardClick}
+        style={{ cursor: 'pointer' }}
+        className='petcard-container'>
+
         <Card key={pet.petId} border="dark" className='mb-3 pet-card'>
-          {pet.image ? (
+          {/* Use isVisible to conditionally render the image */}
+          {isVisible && pet.image ? (
             <Card.Img
               src={pet.image}
               alt={`Photo of ${pet.name}`}
               variant="top"
-              className="pet-image" // Add this class
+              className="pet-image"
             />
           ) : null}
           <Card.Body>
@@ -40,11 +77,11 @@ const PetCard = ({ pet, savedPetIds, handleSavePet, handleDeletePet }) => { // A
           pet={pet}
           savedPetIds={savedPetIds}
           handleSavePet={handleSavePet}
-          handleDeletePet={handleDeletePet} // Add handleDeletePet here
+          handleDeletePet={handleDeletePet}
           handleCloseModal={handleCloseModal}
+          isFavorite={isFavorite} // Set based on the pet's saved status
         />
       </Modal>
-
     </>
   );
 };

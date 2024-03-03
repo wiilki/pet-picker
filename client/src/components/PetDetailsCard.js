@@ -1,12 +1,14 @@
 import React from 'react';
 import { Col, Button, Card } from 'react-bootstrap';
 import Auth from '../utils/auth';
+import '../styles/petcard.css'
 
-const PetDetailsCard = ({ pet, savedPetIds, handleSavePet, handleCloseModal, handleDeletePet }) => {
-
+const PetDetailsCard = ({ pet, savedPetIds, handleSavePet, handleCloseModal, handleDeletePet, isFavorite }) => {
+  // Determine if the pet is saved
+  const isPetSaved = isFavorite || savedPetIds?.some((savedId) => savedId === pet.petId);
 
   return (
-    <Col>
+    <Col className='details-card-container'>
       <Card key={pet.petId} border="dark">
         {pet.image ? (
           <Card.Img
@@ -22,19 +24,25 @@ const PetDetailsCard = ({ pet, savedPetIds, handleSavePet, handleCloseModal, han
           <p className="small">Size: {pet.size}</p>
           <Card.Text>{pet.description}</Card.Text>
           {Auth.loggedIn() && (
-            <Button
-              disabled={savedPetIds?.some(
-                (savedId) => savedId === pet.petId
+            <>
+              {!isPetSaved ? (
+                <Button
+                  className="btn-block btn-info"
+                  onClick={() => handleSavePet(pet.petId)}
+                >
+                  Save This Pet!
+                </Button>
+              ) : (
+                <Button
+                  variant="danger"
+                  className="btn-block"
+                  onClick={() => handleDeletePet(pet.petId)}
+                >
+                  Remove
+                </Button>
               )}
-              className="btn-block btn-info"
-              onClick={() => handleSavePet(pet.petId)}
-            >
-              {savedPetIds?.some((savedId) => savedId === pet.petId)
-                ? 'SAVED!'
-                : 'Save This Pet!'}
-            </Button>
+            </>
           )}
-          <Button variant="primary" onClick={() => handleDeletePet(pet.petId)}>Remove</Button>
           <Button className="btn-block" onClick={handleCloseModal}>
             Close Modal
           </Button>
