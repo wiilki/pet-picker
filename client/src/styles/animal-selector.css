@@ -1,0 +1,30 @@
+.search-bar-container {
+    display: flex;
+    padding-top: 12px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.search-bar-container ul {
+    background-color: burlywood;
+  }
+
+.search-bar-buttons{
+    width: 120px ;
+}
+
+.search-bar-buttons {
+    background-color: transparent;
+    border: 2px solid #007bff;
+    color: #007bff;
+    box-shadow: 0 0 10px #007bff;
+    margin: 10px;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-width: 80px;
+    overflow: hidden ;
+}

@@ -1,41 +1,18 @@
-.nav-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color:  burlywood;
-    padding: 1rem;
-    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .logo-link {
-    color: #333;
-    text-decoration: none;
-    font-size: 2rem;
-    font-weight: bold;
-  }
-  
-  .nav-links {
-    display: flex;
-    align-items: center;
-  }
-  
-  .nav-links ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .nav-links li {
-    margin-right: 1rem;
-  }
-  
-  .nav-links a {
-    color: #333;
-    text-decoration: none;
-    font-size: 1.2rem;
-  }
-  
-  .nav-links a:hover {
-    text-decoration: underline;
-  }
+.navbar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.nav-link-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+}
+
+.nav-link-container > *{
+  margin: 5px;
+  display: flex;
+  align-items: flex-end;
+}

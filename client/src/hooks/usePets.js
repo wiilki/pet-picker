@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
-import { SAVE_PET } from '../utils/mutations';
+import { SAVE_PET, REMOVE_PET } from '../utils/mutations';
 import Auth from '../utils/auth';
 import { fetchToken, fetchPets } from '../utils/api';
-import { savePetIds, getSavedPetIds } from '../utils/localStorage';
+import { savePetIds, getSavedPetIds, removePetId } from '../utils/localStorage';
 import he from 'he';
 
 export const usePets = () => {
@@ -17,6 +17,7 @@ export const usePets = () => {
   const [selectedGender, setSelectedGender] = useState('');
 
   const [savePet] = useMutation(SAVE_PET);
+  const [removePet] = useMutation(REMOVE_PET);
 
   useEffect(() => {
     savePetIds(savedPetIds);
@@ -79,10 +80,31 @@ export const usePets = () => {
     }
   };
 
+  const handleDeletePet = async (petId) => {
+    // get token
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
+
+    try {
+      const { data } = await removePet({
+        variables: { petId },
+      });
+
+      // upon success, remove pet's id from localStorage
+      removePetId(petId);
+      setSavedPetIds((currentIds) => currentIds.filter(id => id !== petId)); // Remove from state
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const handleGenderChange = async (gender) => {
     setSelectedGender(gender);
     await fetchAndDisplayPets(selectedAnimalType, '', '', gender);
   };
 
-  return { searchedPets, displayedPets, handleLoadMore, handleAnimalType, handleSavePet, loading, savedPetIds, handleGenderChange };
+  return { searchedPets, displayedPets, handleLoadMore, handleAnimalType, handleSavePet, handleDeletePet, loading, savedPetIds, handleGenderChange };
 };
