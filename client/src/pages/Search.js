@@ -3,6 +3,7 @@ import { Container, Row } from 'react-bootstrap';
 import PetCard from '../components/PetCard';
 import { usePets } from '../hooks/usePets';
 import AnimalTypeSelector from '../components/AnimalTypeSelector';
+import BackToTop from '../components/BackToTop';
 
 const Search = () => {
   const { searchedPets, savedPetIds, handleAnimalType, handleSavePet, handleDeletePet } = usePets();
@@ -31,6 +32,7 @@ const Search = () => {
           ))}
         </Row>
       </div>
+      <BackToTop />
     </>
   );
 };

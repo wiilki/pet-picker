@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries';
 import PetCard from '../components/PetCard';
 import { usePets } from '../hooks/usePets';
+import BackToTop from '../components/BackToTop';
 
 const Favorites = () => {
   const { loading, data } = useQuery(QUERY_ME);
@@ -42,6 +43,7 @@ const Favorites = () => {
           ))}
         </Row>
       </Container>
+      <BackToTop />
     </>
   );
 };
