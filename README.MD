@@ -1,4 +1,4 @@
-# Pet Finder
+# Pet Picker
 
 ## Table of Contents
 1. [Project Description](#project-description)
@@ -9,7 +9,7 @@
 6. [License](#license)
 7. [Contact Me](#contact-me)
 
-##Project Description
+## Project Description
 * This application is built using react, graphql, Nodejs
  
 * As a user, I want to be able to visit a Home page that contains a login/Signup option...
@@ -23,16 +23,13 @@
 
  ## Usage
  Mock up image of our site:
- ![Mockup](/client/public/mockup.png)
+![portfolio-15](https://user-images.githubusercontent.com/114313171/230281631-e59ecb4d-7767-4389-8b1e-a6324954c539.jpg)
 
  ## Installation Instructions
  * This application should be used via web interface, no installation required.
 
  ## How to Use
- (Deployed Site)
+ * To deploy application, go to [Deployed Site](https://pet-picker-mern.herokuapp.com/)
 
 ## How to contribute
-* Contact us on githib.
-
-## Testing
-None
+* Contact us on github.

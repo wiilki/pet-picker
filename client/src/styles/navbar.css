@@ -1,0 +1,18 @@
+.navbar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.nav-link-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+}
+
+.nav-link-container > *{
+  margin: 5px;
+  display: flex;
+  align-items: flex-end;
+}

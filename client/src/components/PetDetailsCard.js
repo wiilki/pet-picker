@@ -1,12 +1,13 @@
 import React from 'react';
-import { Col, Button, Card, } from 'react-bootstrap';
+import { Col, Button, Card } from 'react-bootstrap';
+import Auth from '../utils/auth';
 
-import Auth from '../../utils/auth';
+const PetDetailsCard = ({ pet, savedPetIds, handleSavePet, handleCloseModal, handleDeletePet }) => {
 
-const PetCard = ({ pet, savedPetIds, handleSavePet }) => {
+
   return (
-    <Col md="4">
-      <Card key={pet.petId} border="dark" className='mb-3'>
+    <Col>
+      <Card key={pet.petId} border="dark">
         {pet.image ? (
           <Card.Img
             src={pet.image}
@@ -33,10 +34,14 @@ const PetCard = ({ pet, savedPetIds, handleSavePet }) => {
                 : 'Save This Pet!'}
             </Button>
           )}
+          <Button variant="primary" onClick={() => handleDeletePet(pet.petId)}>Remove</Button>
+          <Button className="btn-block" onClick={handleCloseModal}>
+            Close Modal
+          </Button>
         </Card.Body>
       </Card>
     </Col>
   );
 };
 
-export default PetCard;
+export default PetDetailsCard;
