@@ -14,8 +14,6 @@ const PetCard = ({ pet, savedPetIds, handleSavePet, handleDeletePet, isFavorite 
     setShowModal(false);
   };
 
-  const isPetSaved = savedPetIds.includes(pet.petId);
-
   return (
     <>
       <Col md="4" onClick={handleCardClick} style={{ cursor: 'pointer' }} className='petcard-container'>
@@ -44,7 +42,7 @@ const PetCard = ({ pet, savedPetIds, handleSavePet, handleDeletePet, isFavorite 
           handleSavePet={handleSavePet}
           handleDeletePet={handleDeletePet}
           handleCloseModal={handleCloseModal}
-          isFavorite={isPetSaved} // Set based on the pet's saved status
+          isFavorite={isFavorite}// Set based on the pet's saved status
         />
       </Modal>
     </>

@@ -4,7 +4,6 @@ import Auth from '../utils/auth';
 import '../styles/petcard.css'
 
 const PetDetailsCard = ({ pet, savedPetIds, handleSavePet, handleCloseModal, handleDeletePet, isFavorite }) => {
-
   // Determine if the pet is saved
   const isPetSaved = isFavorite || savedPetIds?.some((savedId) => savedId === pet.petId);
 
@@ -26,20 +25,20 @@ const PetDetailsCard = ({ pet, savedPetIds, handleSavePet, handleCloseModal, han
           <Card.Text>{pet.description}</Card.Text>
           {Auth.loggedIn() && (
             <>
-              {isPetSaved ? (
+              {!isPetSaved ? (
+                <Button
+                  className="btn-block btn-info"
+                  onClick={() => handleSavePet(pet.petId)}
+                >
+                  Save This Pet!
+                </Button>
+              ) : (
                 <Button
                   variant="danger"
                   className="btn-block"
                   onClick={() => handleDeletePet(pet.petId)}
                 >
                   Remove
-                </Button>
-              ) : (
-                <Button
-                  className="btn-block btn-info"
-                  onClick={() => handleSavePet(pet.petId)}
-                >
-                  Save This Pet!
                 </Button>
               )}
             </>
