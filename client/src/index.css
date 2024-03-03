@@ -2,14 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-#root {
-  overflow: hidden;
-}
 
 body {
   background-image: url(../src/images/background.png);
   width: 100%;
-  overflow-x: hidden;
 }
 
 .container {
@@ -19,10 +15,6 @@ body {
   margin-top: 2rem;
   background-color: burlywood;
   border-radius: 25px;
-}
-
-.row {
-  overflow: hidden;
 }
 
 h2 {
