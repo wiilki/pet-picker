@@ -5,6 +5,8 @@
   margin: 10px;
   padding: 10px;
   height: 630px;
+  overflow: hidden;
+  max-width: 350px;
 }
 
 .pet-card .card-body {
@@ -44,5 +46,11 @@
 }
 
 .petcard-container {
+  display: flex;
   overflow: hidden;
+  justify-content: center;
+}
+
+.details-card-container {
+  padding: 10px;
 }

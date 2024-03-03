@@ -3,7 +3,7 @@ import { Col, Card, Modal } from 'react-bootstrap';
 import PetDetailsCard from './PetDetailsCard';
 import '../styles/petcard.css';
 
-const PetCard = ({ pet, savedPetIds, handleSavePet, handleDeletePet }) => { // Add handleDeletePet to the props
+const PetCard = ({ pet, savedPetIds, handleSavePet, handleDeletePet, isFavorite }) => { // Add handleDeletePet to the props
   const [showModal, setShowModal] = useState(false);
 
   const handleCardClick = () => {
@@ -13,6 +13,8 @@ const PetCard = ({ pet, savedPetIds, handleSavePet, handleDeletePet }) => { // A
   const handleCloseModal = () => {
     setShowModal(false);
   };
+
+  const isPetSaved = savedPetIds.includes(pet.petId);
 
   return (
     <>
@@ -40,11 +42,11 @@ const PetCard = ({ pet, savedPetIds, handleSavePet, handleDeletePet }) => { // A
           pet={pet}
           savedPetIds={savedPetIds}
           handleSavePet={handleSavePet}
-          handleDeletePet={handleDeletePet} // Add handleDeletePet here
+          handleDeletePet={handleDeletePet}
           handleCloseModal={handleCloseModal}
+          isFavorite={isPetSaved} // Set based on the pet's saved status
         />
       </Modal>
-
     </>
   );
 };

@@ -5,7 +5,7 @@ import { usePets } from '../hooks/usePets';
 import AnimalTypeSelector from '../components/AnimalTypeSelector';
 
 const Search = () => {
-  const { searchedPets, savedPetIds, handleAnimalType, handleSavePet , handleDeletePet} = usePets();
+  const { searchedPets, savedPetIds, handleAnimalType, handleSavePet, handleDeletePet } = usePets();
 
   const handleSearch = (type, size, age, gender) => {
     handleAnimalType({ species: type, size, age, gender });

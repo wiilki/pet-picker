@@ -36,6 +36,7 @@ const Favorites = () => {
               savedPetIds={savedPetIds}
               handleSavePet={handleSavePet}
               handleDeletePet={handleDeletePet}
+              isFavorite={true} // Add this line
             />
 
           ))}
