@@ -4,6 +4,7 @@ import { SAVE_PET, REMOVE_PET } from '../utils/mutations';
 import Auth from '../utils/auth';
 import { fetchToken, fetchPets } from '../utils/api';
 import { savePetIds, getSavedPetIds, removePetId } from '../utils/localStorage';
+import { saveToCache, loadFromCache } from '../utils/cache';
 import he from 'he';
 
 export const usePets = () => {
@@ -39,11 +40,11 @@ export const usePets = () => {
         image: animal.photos[0]?.medium || '',
       }));
 
-      if (fromLoadMore || petBuffer.length < 100) {
-        setDisplayedPets(currentDisplayedPets => [...currentDisplayedPets, ...newPets]);
-      } else {
-        setDisplayedPets(newPets);
-      }
+      setDisplayedPets(currentDisplayedPets => {
+        const updatedPets = [...currentDisplayedPets, ...newPets];
+        saveToCache('displayedPets', updatedPets);
+        return updatedPets;
+      });
 
       setPetBuffer(animalsWithImages);
       setCurrentPage(prevPage => prevPage + 1);
