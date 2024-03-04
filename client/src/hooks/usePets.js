@@ -4,11 +4,11 @@ import { SAVE_PET, REMOVE_PET } from '../utils/mutations';
 import Auth from '../utils/auth';
 import { fetchToken, fetchPets } from '../utils/api';
 import { savePetIds, getSavedPetIds, removePetId } from '../utils/localStorage';
+import { saveToCache, loadFromCache } from '../utils/cache';
 import he from 'he';
 
 export const usePets = () => {
   const [selectedAnimalType, setSelectedAnimalType] = useState('');
-  const [searchedPets, setSearchedPets] = useState([]); // Update to manage searched pets
   const [displayedPets, setDisplayedPets] = useState([]);
   const [petBuffer, setPetBuffer] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,15 +40,21 @@ export const usePets = () => {
         image: animal.photos[0]?.medium || '',
       }));
 
-      if (fromLoadMore || petBuffer.length < 100) {
+      setDisplayedPets(currentDisplayedPets => {
+        const updatedPets = [...currentDisplayedPets, ...newPets];
+        saveToCache('displayedPets', updatedPets);
+        return updatedPets;
+      });
+
+      if (fromLoadMore) {
+        // Append new pets to the existing ones for infinite scrolling
         setDisplayedPets(currentDisplayedPets => [...currentDisplayedPets, ...newPets]);
       } else {
+        // Replace displayed pets with new ones for a new search
         setDisplayedPets(newPets);
       }
 
-      // Update searchedPets state here
-      setSearchedPets(newPets); // This should reflect the current search result
-      setPetBuffer(animalsWithImages);
+      saveToCache('displayedPets', newPets);
       setCurrentPage(page + 1);
     } catch (err) {
       console.error(err);
@@ -58,13 +64,14 @@ export const usePets = () => {
   };
 
   const handleLoadMore = async () => {
-    await fetchAndDisplayPets(selectedAnimalType, currentPage, selectedGender);
+    await fetchAndDisplayPets(selectedAnimalType, '', '', selectedGender, currentPage, true); // true indicates loading more pets
   };
 
   const handleAnimalType = async (type) => {
     setSelectedAnimalType(type);
-    await fetchAndDisplayPets(type, '', '', selectedGender);
-  };
+    setCurrentPage(1);
+    await fetchAndDisplayPets(type, '', '', '', 1, false); // false indicates this is a new search
+  };  
 
   const handleSavePet = async (petId) => {
     const petToSave = displayedPets.find((pet) => pet.petId === petId);
@@ -106,5 +113,5 @@ export const usePets = () => {
     await fetchAndDisplayPets(selectedAnimalType, '', '', gender);
   };
 
-  return { searchedPets, displayedPets, handleLoadMore, handleAnimalType, handleSavePet, handleDeletePet, loading, savedPetIds, handleGenderChange };
+  return { displayedPets, handleLoadMore, handleAnimalType, handleSavePet, handleDeletePet, loading, savedPetIds, handleGenderChange };
 };

@@ -12,12 +12,13 @@ export const fetchToken = async () => {
     return response.json();
 };
 
-export const fetchPets = async ({ species, size, age, gender }, accessToken, page = 1) => {
+export const fetchPets = async ({ type, size, age, gender }, accessToken, page = 1) => {
   const queryParams = new URLSearchParams({
-    type: species,
+    type: type,
     size: size,
     age: age,
     gender: gender,
+    status: 'adoptable',
     limit: 100,
     page: page
   });
@@ -29,5 +30,3 @@ export const fetchPets = async ({ species, size, age, gender }, accessToken, pag
   if (!response.ok) throw new Error('Failed to fetch pet data');
   return response.json();
 };
-
-

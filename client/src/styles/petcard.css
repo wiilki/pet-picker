@@ -5,7 +5,7 @@
   padding: 10px;
   height: 630px;
   overflow: hidden;
-  max-width: 350px;
+  width: 100%;
 }
 
 .pet-card .card-body {
@@ -52,4 +52,10 @@
 
 .details-card-container {
   padding: 10px;
+}
+
+.pet-modal-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
 }

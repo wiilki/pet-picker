@@ -15,6 +15,7 @@ const PetDetailsCard = ({ pet, savedPetIds, handleSavePet, handleCloseModal, han
             src={pet.image}
             alt={`Photo of ${pet.name}`}
             variant="top"
+            className='pet-modal-image'
           />
         ) : null}
         <Card.Body>
@@ -44,7 +45,7 @@ const PetDetailsCard = ({ pet, savedPetIds, handleSavePet, handleCloseModal, han
             </>
           )}
           <Button className="btn-block" onClick={handleCloseModal}>
-            Close Modal
+            Close
           </Button>
         </Card.Body>
       </Card>
