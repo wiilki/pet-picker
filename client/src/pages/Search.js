@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import PetCard from '../components/PetCard';
 import { usePets } from '../hooks/usePets';
 import AnimalTypeSelector from '../components/AnimalTypeSelector';
 import BackToTop from '../components/BackToTop';
-import { useEffect } from 'react';
 
 const Search = () => {
   const { displayedPets, savedPetIds, handleAnimalType, handleSavePet, handleDeletePet, handleLoadMore } = usePets();
@@ -15,8 +14,17 @@ const Search = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
-      handleLoadMore(); // Trigger loading more pets
+      // Calculate the distance from the bottom of the page
+      const scrolledFromTop = window.scrollY;
+      const viewportHeight = window.innerHeight;
+      const totalPageHeight = document.documentElement.scrollHeight;
+
+      // Define how close to the bottom you want to trigger the load more function (e.g., within 300px of the bottom)
+      const triggerHeight = 300;
+
+      if (scrolledFromTop + viewportHeight + triggerHeight >= totalPageHeight) {
+        handleLoadMore();
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
