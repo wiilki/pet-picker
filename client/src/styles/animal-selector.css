@@ -28,3 +28,9 @@
     align-items: center;
     min-width: 80px;
 }
+
+.form-control {
+    max-width: 500px;
+    margin: auto; 
+    border-radius: 10px;
+}

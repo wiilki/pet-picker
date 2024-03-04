@@ -32,12 +32,12 @@ export const usePets = () => {
     saveToCache('displayedPets', newPets);
   };
 
-  const fetchAndDisplayPets = async (type = '', size = '', age = '', gender = '', page = 1, fromLoadMore = false) => {
+  const fetchAndDisplayPets = async (type = '', size = '', age = '', gender = '', location ='', page = 1, fromLoadMore = false) => {
     setLoading(true);
     page = Math.max(1, Number(page) || 1);
 
     try {
-      const newPets = await fetchPetData(type, size, age, gender, '', page);
+      const newPets = await fetchPetData(type, size, age, gender, location, '', page);
       displayPetData(newPets, fromLoadMore);
       setCurrentPage(prevPage => prevPage + 1);
     } catch (err) {
@@ -48,16 +48,15 @@ export const usePets = () => {
   };
 
   const handleLoadMore = async () => {
-    await fetchAndDisplayPets(selectedAnimalType, '', '', selectedGender, currentPage, true); // true indicates loading more pets
+    await fetchAndDisplayPets(selectedAnimalType, '', '', '', selectedGender, currentPage, true); // true indicates loading more pets
   };
 
   const handleAnimalType = async (type) => {
     setSelectedAnimalType(type);
     setCurrentPage(1); // Reset to the first page
     setDisplayedPets([]); // Clear displayed pets immediately on new search
-    await fetchAndDisplayPets(type, '', '', selectedGender, 1, false);
+    await fetchAndDisplayPets(type, '', '', '', selectedGender, 1, false);
   };
-
 
   const handleSavePet = async (petId) => {
     const petToSave = displayedPets.find((pet) => pet.petId === petId);
@@ -65,7 +64,7 @@ export const usePets = () => {
 
     try {
       await savePet({
-        variables: { petData: { petId: petToSave.petId, name: petToSave.name, gender: petToSave.gender, size: petToSave.size, age: petToSave.age, description: petToSave.description, image: petToSave.image, url: petToSave.url } },
+        variables: { petData: { petId: petToSave.petId, name: petToSave.name, gender: petToSave.gender, size: petToSave.size, age: petToSave.age, description: petToSave.description, image: petToSave.image, url: petToSave.url, locatoin:petToSave.location } },
       });
       savePetId(petId)
     } catch (err) {
@@ -95,7 +94,7 @@ export const usePets = () => {
 
   const handleGenderChange = async (gender) => {
     setSelectedGender(gender);
-    await fetchAndDisplayPets(selectedAnimalType, '', '', gender);
+    await fetchAndDisplayPets(selectedAnimalType, '', '', '', gender);
   };
 
   return { displayedPets, handleLoadMore, handleAnimalType, handleSavePet, handleDeletePet, loading, savedPetIds, handleGenderChange };

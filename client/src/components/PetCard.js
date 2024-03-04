@@ -68,7 +68,6 @@ const PetCard = ({ pet, savedPetIds, handleSavePet, handleDeletePet, isFavorite 
             <p className="small">Age: {pet.age}</p>
             <p className="small">Gender: {pet.gender}</p>
             <p className="small">Size: {pet.size}</p>
-            <Card.Text>{pet.description}</Card.Text>
           </Card.Body>
         </Card>
       </Col>

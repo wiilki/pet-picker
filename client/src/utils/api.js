@@ -12,12 +12,13 @@ export const fetchToken = async () => {
     return response.json();
 };
 
-export const fetchPets = async ({ type, size, age, gender }, accessToken, page = 1) => {
+export const fetchPets = async ({ type, size, age, gender, location }, accessToken, page = 1) => {
   const queryParams = new URLSearchParams({
     type: type,
     size: size,
     age: age,
     gender: gender,
+    location: location,
     status: 'adoptable',
     limit: 100,
     page: page
