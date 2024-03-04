@@ -40,22 +40,17 @@ export const usePets = () => {
         image: animal.photos[0]?.medium || '',
       }));
 
-      setDisplayedPets(currentDisplayedPets => {
-        const updatedPets = [...currentDisplayedPets, ...newPets];
-        saveToCache('displayedPets', updatedPets);
-        return updatedPets;
-      });
 
       if (fromLoadMore) {
         // Append new pets to the existing ones for infinite scrolling
         setDisplayedPets(currentDisplayedPets => [...currentDisplayedPets, ...newPets]);
       } else {
-        // Replace displayed pets with new ones for a new search
+        // For a new search, replace displayed pets with new ones
         setDisplayedPets(newPets);
       }
-
+  
       saveToCache('displayedPets', newPets);
-      setCurrentPage(page + 1);
+      setCurrentPage(prevPage => prevPage + 1);
     } catch (err) {
       console.error(err);
     } finally {
@@ -69,9 +64,11 @@ export const usePets = () => {
 
   const handleAnimalType = async (type) => {
     setSelectedAnimalType(type);
-    setCurrentPage(1);
-    await fetchAndDisplayPets(type, '', '', '', 1, false); // false indicates this is a new search
-  };  
+    setCurrentPage(1); // Reset to the first page
+    setDisplayedPets([]); // Clear displayed pets immediately on new search
+    await fetchAndDisplayPets(type, '', '', selectedGender, 1, false);
+  };
+   
 
   const handleSavePet = async (petId) => {
     const petToSave = displayedPets.find((pet) => pet.petId === petId);
