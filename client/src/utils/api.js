@@ -29,5 +29,3 @@ export const fetchPets = async ({ species, size, age, gender }, accessToken, pag
   if (!response.ok) throw new Error('Failed to fetch pet data');
   return response.json();
 };
-
-
