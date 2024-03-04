@@ -7,10 +7,10 @@ import BackToTop from '../components/BackToTop';
 import { useEffect } from 'react';
 
 const Search = () => {
-  const { searchedPets, savedPetIds, handleAnimalType, handleSavePet, handleDeletePet, handleLoadMore } = usePets();
+  const { displayedPets, savedPetIds, handleAnimalType, handleSavePet, handleDeletePet, handleLoadMore } = usePets();
 
   const handleSearch = (type, size, age, gender) => {
-    handleAnimalType({ species: type, size, age, gender });
+    handleAnimalType({ type, size, age, gender });
   };
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const Search = () => {
       </div>
       <div className='display-search-container'>
         <Row>
-          {searchedPets.map((pet) => (
+          {displayedPets.map((pet) => (
             <PetCard
               key={pet.petId}
               pet={pet}

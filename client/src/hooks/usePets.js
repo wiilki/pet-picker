@@ -8,7 +8,6 @@ import he from 'he';
 
 export const usePets = () => {
   const [selectedAnimalType, setSelectedAnimalType] = useState('');
-  const [searchedPets, setSearchedPets] = useState([]); // Update to manage searched pets
   const [displayedPets, setDisplayedPets] = useState([]);
   const [petBuffer, setPetBuffer] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -46,8 +45,6 @@ export const usePets = () => {
         setDisplayedPets(newPets);
       }
 
-      // Update searchedPets state here
-      setSearchedPets(newPets); // This should reflect the current search result
       setPetBuffer(animalsWithImages);
       setCurrentPage(prevPage => prevPage + 1);
     } catch (err) {
@@ -107,5 +104,5 @@ export const usePets = () => {
     await fetchAndDisplayPets(selectedAnimalType, '', '', gender);
   };
 
-  return { searchedPets, displayedPets, handleLoadMore, handleAnimalType, handleSavePet, handleDeletePet, loading, savedPetIds, handleGenderChange };
+  return { displayedPets, handleLoadMore, handleAnimalType, handleSavePet, handleDeletePet, loading, savedPetIds, handleGenderChange };
 };
