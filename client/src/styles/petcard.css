@@ -5,7 +5,8 @@
   padding: 10px;
   height: 630px;
   overflow: hidden;
-  max-width: 350px;
+  /* max-width: 350px; */
+  width: 100%;
 }
 
 .pet-card .card-body {
