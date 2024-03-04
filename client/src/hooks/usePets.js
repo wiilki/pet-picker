@@ -49,7 +49,7 @@ export const usePets = () => {
       // Update searchedPets state here
       setSearchedPets(newPets); // This should reflect the current search result
       setPetBuffer(animalsWithImages);
-      setCurrentPage(page + 1);
+      setCurrentPage(prevPage => prevPage + 1);
     } catch (err) {
       console.error(err);
     } finally {
@@ -58,8 +58,9 @@ export const usePets = () => {
   };
 
   const handleLoadMore = async () => {
-    await fetchAndDisplayPets(selectedAnimalType, currentPage, selectedGender);
+    await fetchAndDisplayPets(selectedAnimalType, '', '', selectedGender, currentPage); // Pass currentPage correctly
   };
+  
 
   const handleAnimalType = async (type) => {
     setSelectedAnimalType(type);

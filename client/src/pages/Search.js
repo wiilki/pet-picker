@@ -4,13 +4,24 @@ import PetCard from '../components/PetCard';
 import { usePets } from '../hooks/usePets';
 import AnimalTypeSelector from '../components/AnimalTypeSelector';
 import BackToTop from '../components/BackToTop';
+import { useEffect } from 'react';
 
 const Search = () => {
-  const { searchedPets, savedPetIds, handleAnimalType, handleSavePet, handleDeletePet } = usePets();
+  const { searchedPets, savedPetIds, handleAnimalType, handleSavePet, handleDeletePet, handleLoadMore } = usePets();
 
   const handleSearch = (type, size, age, gender) => {
     handleAnimalType({ species: type, size, age, gender });
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
+      handleLoadMore(); // Trigger loading more pets
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleLoadMore]);
 
   return (
     <>
