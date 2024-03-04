@@ -18,6 +18,7 @@ export const fetchPets = async ({ species, size, age, gender }, accessToken, pag
     size: size,
     age: age,
     gender: gender,
+    status: 'adoptable',
     limit: 100,
     page: page
   });
