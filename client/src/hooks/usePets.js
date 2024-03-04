@@ -4,13 +4,12 @@ import { SAVE_PET, REMOVE_PET } from '../utils/mutations';
 import Auth from '../utils/auth';
 import { fetchToken, fetchPets } from '../utils/api';
 import { savePetIds, getSavedPetIds, removePetId } from '../utils/localStorage';
-import { saveToCache, loadFromCache } from '../utils/cache';
+import { saveToCache } from '../utils/cache';
 import he from 'he';
 
 export const usePets = () => {
   const [selectedAnimalType, setSelectedAnimalType] = useState('');
   const [displayedPets, setDisplayedPets] = useState([]);
-  const [petBuffer, setPetBuffer] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [savedPetIds, setSavedPetIds] = useState(getSavedPetIds());
@@ -23,11 +22,14 @@ export const usePets = () => {
     savePetIds(savedPetIds);
   }, [savedPetIds]);
 
-  const fetchAndDisplayPets = async (type = '', size = '', age = '', gender = '', page = 1, fromLoadMore = false) => {
+
+  const fetchAndDisplayPets = async (type = '', size = '', age = '', gender = '', url = '', page = 1, fromLoadMore = false) => {
     setLoading(true);
+    page = Math.max(1, Number(page) || 1);
+
     try {
       const { access_token } = await fetchToken(process.env.REACT_APP_CLIENT_ID, process.env.REACT_APP_CLIENT_SECRET);
-      const fetchedData = await fetchPets(type, access_token, page, size, age, gender);
+      const fetchedData = await fetchPets(type, access_token, page, size, age, gender, url);
       const animalsWithImages = fetchedData.animals.filter(animal => animal.photos.length > 0);
 
       const newPets = animalsWithImages.map(animal => ({
@@ -38,6 +40,7 @@ export const usePets = () => {
         age: animal.age,
         description: he.decode(animal.description || "No description available."),
         image: animal.photos[0]?.medium || '',
+        url: animal.url,
       }));
 
 
@@ -48,7 +51,7 @@ export const usePets = () => {
         // For a new search, replace displayed pets with new ones
         setDisplayedPets(newPets);
       }
-  
+
       saveToCache('displayedPets', newPets);
       setCurrentPage(prevPage => prevPage + 1);
     } catch (err) {
@@ -68,7 +71,7 @@ export const usePets = () => {
     setDisplayedPets([]); // Clear displayed pets immediately on new search
     await fetchAndDisplayPets(type, '', '', selectedGender, 1, false);
   };
-   
+
 
   const handleSavePet = async (petId) => {
     const petToSave = displayedPets.find((pet) => pet.petId === petId);
@@ -76,7 +79,7 @@ export const usePets = () => {
 
     try {
       await savePet({
-        variables: { petData: { petId: petToSave.petId, name: petToSave.name, gender: petToSave.gender, size: petToSave.size, age: petToSave.age, description: petToSave.description, image: petToSave.image } },
+        variables: { petData: { petId: petToSave.petId, name: petToSave.name, gender: petToSave.gender, size: petToSave.size, age: petToSave.age, description: petToSave.description, image: petToSave.image , url: petToSave.url} },
       });
       setSavedPetIds((currentIds) => [...currentIds, petToSave.petId]);
     } catch (err) {
