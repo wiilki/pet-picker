@@ -12,6 +12,7 @@
 
 .search-bar-buttons{
     width: 120px ;
+    overflow: hidden;
 }
 
 .search-bar-buttons {
