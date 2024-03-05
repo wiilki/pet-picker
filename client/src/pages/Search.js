@@ -4,6 +4,7 @@ import PetCard from '../components/PetCard';
 import { usePets } from '../hooks/usePets';
 import AnimalTypeSelector from '../components/AnimalTypeSelector';
 import BackToTop from '../components/BackToTop';
+import '../styles/search-page.css'
 
 const Search = () => {
   const [searchLocation, setSearchLocation] = useState(''); // Track location state
@@ -40,11 +41,13 @@ const Search = () => {
           <AnimalTypeSelector handleSearch={handleSearch} />
         </Container>
       </div>
-      <div className='display-search-container'>
-        {/* Conditionally render the <h2> element */}
-        {displayedPets.length > 0 && searchLocation && (
-          <h2> Pets within 100 miles of {searchLocation}</h2>
-        )}
+      <div>
+        <div className='search-header'>
+          {/* Conditionally render the <h2> element */}
+          {displayedPets.length > 0 && searchLocation && (
+            <h2> Pets within 100 miles of {searchLocation}</h2>
+          )}
+        </div>
         <Row>
           {displayedPets.map((pet) => (
             <PetCard
