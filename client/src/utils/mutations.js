@@ -39,6 +39,7 @@ export const SAVE_PET = gql`
         description
         image
         url
+        location
       }
     }
   }
@@ -59,6 +60,7 @@ export const REMOVE_PET = gql`
         description
         image
         url
+        location
       }
     }
   }

@@ -68,6 +68,7 @@ const PetCard = ({ pet, savedPetIds, handleSavePet, handleDeletePet, isFavorite 
             <p className="small">Age: {pet.age}</p>
             <p className="small">Gender: {pet.gender}</p>
             <p className="small">Size: {pet.size}</p>
+            <p className="small">Location: {pet.location}</p>
           </Card.Body>
         </Card>
       </Col>

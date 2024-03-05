@@ -6,6 +6,7 @@ import PetCard from '../components/PetCard';
 import { usePets } from '../hooks/usePets';
 import BackToTop from '../components/BackToTop';
 import { savePetIds } from '../utils/localStorage';
+import '../styles/petcard.css'
 
 const Favorites = () => {
   const { loading, data } = useQuery(QUERY_ME);
@@ -32,12 +33,13 @@ const Favorites = () => {
           <h1>Viewing {userData.username}'s pets!</h1>
         </Container>
       </div>
-      <Container>
-        <h2 className='pt-5'>
-          {userData.savedPets?.length
-            ? `Viewing ${userData.savedPets.length} saved ${userData.savedPets.length === 1 ? 'pet' : 'pets'}:`
-            : 'You have no saved pets!'}
-        </h2>
+
+      <h2 className='pt-5'>
+        {userData.savedPets?.length
+          ? `Viewing ${userData.savedPets.length} saved ${userData.savedPets.length === 1 ? 'pet' : 'pets'}:`
+          : 'You have no saved pets!'}
+      </h2>
+      <div className='display-search-container'>
         <Row>
           {userData.savedPets?.map((pet) => (
             <PetCard
@@ -51,7 +53,7 @@ const Favorites = () => {
 
           ))}
         </Row>
-      </Container>
+      </div>
       <BackToTop />
     </>
   );

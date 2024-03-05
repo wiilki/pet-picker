@@ -15,6 +15,7 @@ export const QUERY_ME = gql`
         description
         image
         url
+        location
       }
     }
   }
@@ -31,6 +32,7 @@ export const QUERY_SINGLE_PET = gql`
       description
       image
       url
+      location
   }
 }
 `;

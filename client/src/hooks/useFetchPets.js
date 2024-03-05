@@ -6,7 +6,7 @@ import he from 'he';
 export const useFetchPets = () => {
   const [loading, setLoading] = useState(false);
 
-  const fetchPetData = async (type = '', size = '', age = '', gender = '', url = '', locaton = '', page = 1) => {
+  const fetchPetData = async (type = '', size = '', age = '', gender = '', url = '', location = '', page = 1) => {
     const { access_token } = await fetchToken(process.env.REACT_APP_CLIENT_ID, process.env.REACT_APP_CLIENT_SECRET);
     const fetchedData = await fetchPets(type, access_token, page, size, age, gender, url);
     return fetchedData.animals.filter(animal => animal.photos.length > 0).map(animal => ({
@@ -18,7 +18,7 @@ export const useFetchPets = () => {
       description: he.decode(animal.description || "No description available."),
       image: animal.photos[0]?.medium || '',
       url: animal.url,
-      location: animal.location,
+      location: `${animal.contact.address.city}, ${animal.contact.address.state}`,
     }));
   };
 
