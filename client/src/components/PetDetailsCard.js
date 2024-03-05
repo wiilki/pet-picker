@@ -23,7 +23,11 @@ const PetDetailsCard = ({ pet, savedPetIds, handleSavePet, handleCloseModal, han
           <p className="small">Age: {pet.age}</p>
           <p className="small">Gender: {pet.gender}</p>
           <p className="small">Size: {pet.size}</p>
+          <p className="small">Location: {pet.location}</p>
           <Card.Text>{pet.description}</Card.Text>
+          {pet.url && (
+            <p className="small"><a href={pet.url} target="_blank" rel="noopener noreferrer">See More about {pet.name}</a></p>
+          )}
           {Auth.loggedIn() && (
             <>
               {!isPetSaved ? (

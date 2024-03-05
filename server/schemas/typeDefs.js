@@ -17,6 +17,8 @@ const typeDefs = gql`
     size: String
     description: String
     image: String
+    url: String
+    location: String
   }
 
   type Auth {
@@ -32,6 +34,8 @@ const typeDefs = gql`
     size: String
     description: String
     image: String
+    url: String
+    location: String
   }
 
   type Query {

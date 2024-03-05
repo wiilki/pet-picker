@@ -1,0 +1,11 @@
+.search-header {
+    display: flex;
+    justify-content: center;
+}
+
+.search-header h2 {
+    font-family: 'Franklin Gothic Medium', Arial, sans-serif;
+    color: black;
+    background-color: white;
+    margin: 10px;
+}

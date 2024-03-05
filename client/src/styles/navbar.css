@@ -1,7 +1,17 @@
+.hero-container {
+  display: flex;
+  justify-content: center;
+}
+
+.hero-container img {
+  width: auto;
+}
+
 .navbar {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
+  padding: 20px;
 }
 
 .nav-link-container {
@@ -11,7 +21,7 @@
   flex-wrap: nowrap;
 }
 
-.nav-link-container > *{
+.nav-link-container>* {
   margin: 5px;
   display: flex;
   align-items: flex-end;

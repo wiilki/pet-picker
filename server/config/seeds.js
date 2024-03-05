@@ -2,8 +2,6 @@ const db = require('./connection');
 
 const { MongoClient } = require('mongodb');
 
-const apiUrl = 'https://api-805C895D-380F-4455-9E67-AC9466E76EF6.sendbird.com';
-const apiKey = '18b8c4dcfabe8ba4eece413f58acdf20739c01a6';
 
 async function seedAnimals() {
   const animals = [

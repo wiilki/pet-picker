@@ -29,6 +29,14 @@ const petSchema = new Schema({
   image: {
     type: String,
   },
+  url: {
+    type: String,
+    required: true,
+  },
+  location: {
+    type: String,
+    required: true,
+  },
 
 });
 

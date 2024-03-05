@@ -38,6 +38,8 @@ export const SAVE_PET = gql`
         age
         description
         image
+        url
+        location
       }
     }
   }
@@ -57,6 +59,8 @@ export const REMOVE_PET = gql`
         age
         description
         image
+        url
+        location
       }
     }
   }

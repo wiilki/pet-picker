@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Dropdown } from 'react-bootstrap';
+import { Button, Dropdown, Form } from 'react-bootstrap';
 import '../styles/animal-selector.css'
 
 const AnimalTypeSelector = ({ handleSearch }) => {
@@ -7,9 +7,10 @@ const AnimalTypeSelector = ({ handleSearch }) => {
   const [size, setSize] = useState('');
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('');
+  const [location, setLocation ] = useState('');
 
   const handleSearchClick = () => {
-    handleSearch(type, size, age, gender);
+    handleSearch(type, size, age, gender, location);
   };
 
   return (
@@ -65,6 +66,15 @@ const AnimalTypeSelector = ({ handleSearch }) => {
             <Dropdown.Item onClick={() => setGender('Female')}>Female</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
+
+        <Form.Control
+          className="mx-2 location-input"
+          type="text"
+          placeholder="Location (city, state or postal code)"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          size="sm"
+        />
 
         <div className='search-button'>
           <Button onClick={handleSearchClick} variant="primary" size="sm" className="mx-2">

@@ -14,6 +14,8 @@ export const QUERY_ME = gql`
         age
         description
         image
+        url
+        location
       }
     }
   }
@@ -29,6 +31,8 @@ export const QUERY_SINGLE_PET = gql`
       age
       description
       image
+      url
+      location
   }
 }
 `;
