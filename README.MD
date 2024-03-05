@@ -11,7 +11,7 @@ An innovative platform designed to enhance your pet adoption experience by lever
 4. [Usage](#usage)
 5. [Features](#features)
 6. [How to Contribute](#how-to-contribute)
-7. [Contact Us](#contact-us)
+7. [Contact](#contact)
 
 ## Project Description
 Pet Picker revolutionizes the pet adoption process through a modern web application. By converting a RESTful API to GraphQL, it ensure efficient and precise data handling. Authenticated users can easily search, view, and save their favorite pets to revisit at any time. Deployed on Heroku and powered by MongoDB Atlas, our application ensures accessibility and reliability.
@@ -44,7 +44,7 @@ To explore Pet Picker:
 ## How to Contribute
 Interested in contributing? I'd love your help improving Pet Picker! Please reach out to me on GitHub for more information on how to get involved.
 
-## Contact Us
+## Contact
 For any questions or contributions, please reach out to me via GitHub.
 
 Thank you for exploring Pet Picker, where your next pet adventure begins!
