@@ -12,17 +12,23 @@
   flex-direction: row;
   flex-wrap: nowrap;
   padding: 20px;
+  justify-content: flex-end;
 }
 
-.nav-link-container {
+.nav-pills {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
-  flex-wrap: nowrap;
 }
 
-.nav-link-container>* {
-  margin: 5px;
-  display: flex;
-  align-items: flex-end;
+.nav-pills .nav-item {
+  margin: 0px 10px;
+}
+
+.nav-pills .nav-item a {
+  padding: 2px 10px;
+}
+
+.navbar-nav .nav-link.active{
+  color: white;
+  background-color: #007bff;
 }

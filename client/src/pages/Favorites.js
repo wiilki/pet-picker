@@ -30,15 +30,10 @@ const Favorites = () => {
     <>
       <div fluid="true" className="text-light bg-dark p-5">
         <Container>
-          <h1>Viewing {userData.username}'s pets!</h1>
+          <h1>{userData.username}'s pets!</h1>
         </Container>
       </div>
 
-      <h2 className='pt-5'>
-        {userData.savedPets?.length
-          ? `Viewing ${userData.savedPets.length} saved ${userData.savedPets.length === 1 ? 'pet' : 'pets'}:`
-          : 'You have no saved pets!'}
-      </h2>
       <div className='display-search-container'>
         <Row>
           {userData.savedPets?.map((pet) => (

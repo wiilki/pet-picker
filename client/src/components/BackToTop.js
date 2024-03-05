@@ -16,8 +16,9 @@ const BackToTop = () => {
       className="position-fixed bottom-0 end-0 m-3"
       onClick={scrollToTop}
       aria-label="Back to top"
+      style={{ backgroundColor: '#007bff' }}
     >
-      <ArrowUp /> {/* Optionally use an icon */}
+      <ArrowUp /> 
     </Button>
   );
 };

@@ -10,6 +10,7 @@
     background-color: burlywood;
   }
 
+
 .search-bar-buttons{
     width: 120px ;
     overflow: hidden;
@@ -17,9 +18,9 @@
 
 .search-bar-buttons {
     background-color: transparent;
-    border: 2px solid #007bff;
+    border: 2px solid #007bff93;
     color: #007bff;
-    box-shadow: 0 0 10px #007bff;
+    box-shadow: 0 0 5px #007bff90;
     margin: 10px;
     border-radius: 10px;
     text-align: center;
@@ -27,6 +28,11 @@
     flex-direction: row;
     align-items: center;
     min-width: 80px;
+}
+
+.search-button .btn {
+    background-color: #007bff93;
+    margin: 10px; 
 }
 
 .form-control {

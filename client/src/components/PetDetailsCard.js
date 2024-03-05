@@ -9,7 +9,7 @@ const PetDetailsCard = ({ pet, savedPetIds, handleSavePet, handleCloseModal, han
 
   return (
     <Col className='details-card-container'>
-      <Card key={pet.petId} border="dark">
+      <Card key={pet.petId} border="dark" className='mb-3 pet-details-card'>
         {pet.image ? (
           <Card.Img
             src={pet.image}
@@ -20,10 +20,10 @@ const PetDetailsCard = ({ pet, savedPetIds, handleSavePet, handleCloseModal, han
         ) : null}
         <Card.Body>
           <Card.Title>{pet.name}</Card.Title>
-          <p className="small">Age: {pet.age}</p>
-          <p className="small">Gender: {pet.gender}</p>
-          <p className="small">Size: {pet.size}</p>
-          <p className="small">Location: {pet.location}</p>
+          <p class="small"><strong>Age:</strong> <span>{pet.age}</span></p>
+          <p class="small"><strong>Gender:</strong> <span>{pet.gender}</span></p>
+          <p class="small"><strong>Size:</strong> <span>{pet.size}</span></p>
+          <p class="small"><strong>Location:</strong> <span>{pet.location}</span></p>
           <Card.Text>{pet.description}</Card.Text>
           {pet.url && (
             <p className="small"><a href={pet.url} target="_blank" rel="noopener noreferrer">See More about {pet.name}</a></p>
