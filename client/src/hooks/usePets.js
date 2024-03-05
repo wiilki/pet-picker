@@ -64,7 +64,7 @@ export const usePets = () => {
 
     try {
       await savePet({
-        variables: { petData: { petId: petToSave.petId, name: petToSave.name, gender: petToSave.gender, size: petToSave.size, age: petToSave.age, description: petToSave.description, image: petToSave.image, url: petToSave.url, locatoin:petToSave.location } },
+        variables: { petData: { petId: petToSave.petId, name: petToSave.name, gender: petToSave.gender, size: petToSave.size, age: petToSave.age, description: petToSave.description, image: petToSave.image, url: petToSave.url, location:petToSave.location } },
       });
       savePetId(petId)
     } catch (err) {
