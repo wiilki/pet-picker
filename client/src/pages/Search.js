@@ -7,22 +7,22 @@ import BackToTop from '../components/BackToTop';
 import '../styles/search-page.css'
 
 const Search = () => {
-  const [searchLocation, setSearchLocation] = useState(''); // Track location state
-  const { displayedPets, savedPetIds, handleAnimalType, handleSavePet, handleDeletePet, handleLoadMore } = usePets();
+  const [searchLocation, setSearchLocation] = useState('');
+  const { displayedPets, savedPetIds, handleAnimalType, handleSavePet, handleDeletePet, handleLoadMore, loading } = usePets();
+  const [searchPerformed, setSearchPerformed] = useState(false);
 
   const handleSearch = (type, size, age, gender, location) => {
-    setSearchLocation(location); // Update location state on search
+    setSearchLocation(location);
+    setSearchPerformed(true);
     handleAnimalType({ type, size, age, gender, location });
   };
 
   useEffect(() => {
     const handleScroll = () => {
-      // Calculate the distance from the bottom of the page
       const scrolledFromTop = window.scrollY;
       const viewportHeight = window.innerHeight;
       const totalPageHeight = document.documentElement.scrollHeight;
 
-      // Define how close to the bottom you want to trigger the load more function
       const triggerHeight = 300;
 
       if (scrolledFromTop + viewportHeight + triggerHeight >= totalPageHeight) {
@@ -43,10 +43,15 @@ const Search = () => {
       </div>
       <div>
         <div className='search-header'>
-          {/* Conditionally render the <h2> element */}
-          {displayedPets.length > 0 && searchLocation && (
-            <h2> Pets within 100 miles of {searchLocation}</h2>
-          )}
+          {loading && searchPerformed ? (
+            <h2>Loading...</h2>
+          ) : searchPerformed ? (
+            displayedPets.length > 0 ? (
+              <h2>Pets within 100 miles of {searchLocation}</h2>
+            ) : (
+              <h2>No Results Found</h2>
+            )
+          ) : null}
         </div>
         <Row>
           {displayedPets.map((pet) => (

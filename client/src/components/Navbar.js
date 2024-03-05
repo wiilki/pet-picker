@@ -13,12 +13,9 @@ const AppNavbar = () => {
   return (
     <>
       <Navbar bg='dark' variant='dark' expand='lg'>
-        <Container fluid>
-          <Navbar.Brand as={Link} to='/'>
-            Pet Picker
-          </Navbar.Brand>
+        <Container fluid className="navbar-container">
 
-          <Navbar.Collapse className='nav-link-container'>
+          <Navbar.Collapse>
             <Nav className='mr-auto'>
               <Nav.Link as={Link} to='/'>
                 Search For Pets

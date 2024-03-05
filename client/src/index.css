@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-#root {
-  width: 100%;
-  max-width: 100vw;
-}
 
 body {
   background-image: url(../src/images/background.png);
@@ -13,11 +9,6 @@ body {
   overflow-x: hidden;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 2rem;
-  background-color: burlywood;
-  border-radius: 25px;
+a, p, h1, h2 {
+  font-family: 'Franklin Gothic Medium', Arial, sans-serif;
 }
