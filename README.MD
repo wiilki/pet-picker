@@ -1,35 +1,51 @@
 # Pet Picker
 
+An innovative platform designed to enhance your pet adoption experience by leveraging the latest web technologies. Dive into a user-friendly interface where the wonders of the animal kingdom are just a click away. Built on the MERN stack with GraphQL, our application promises a seamless and dynamic user interaction.
+
+![Pet Picker](client/src/images/screenshot.png)
+
 ## Table of Contents
 1. [Project Description](#project-description)
-2. [Installation Instructions](#installation-Instructions)
-3. [How to Use](#how-to-use)
-4. [How to Contribute](#how-to-contribute)
-5. [Testing](#testing)
-6. [License](#license)
-7. [Contact Me](#contact-me)
+2. [Technology Stack](#technology-stack)
+3. [Installation Instructions](#installation-instructions)
+4. [Usage](#usage)
+5. [Features](#features)
+6. [How to Contribute](#how-to-contribute)
+7. [License](#license)
+8. [Contact Us](#contact-us)
 
 ## Project Description
-* This application is built using react, graphql, Nodejs
- 
-* As a user, I want to be able to visit a Home page that contains a login/Signup option...
- ..so that I can create an account.
- 
-* I want to be able to view a category of pets in my Homepage..
- ..so that I can select a pet and view a list of pets in that category.
+Pet Picker revolutionizes the pet adoption process through a modern web application. By converting a RESTful API to GraphQL, it ensure efficient and precise data handling. Authenticated users can easily search, view, and save their favorite pets to revisit at any time. Deployed on Heroku and powered by MongoDB Atlas, our application ensures accessibility and reliability.
 
-* I want to be able to have a search option in the homepage..
- ..so that I can select a category.
+## Technology Stack
+- **Frontend**: React.js
+- **Backend**: Node.js, Express.js, GraphQL, Apollo Server
+- **Database**: MongoDB with Mongoose ODM
+- **Authentication**: JWT for secure access and bcrypt for password hashing
+- **Deployment**: Heroku with MongoDB Atlas
 
- ## Usage
- Mock up image of our site:
-![portfolio-15](https://user-images.githubusercontent.com/114313171/230281631-e59ecb4d-7767-4389-8b1e-a6324954c539.jpg)
+## Installation Instructions
+Accessing Pet Picker requires no installation. Simply navigate to our [deployed site](https://pet-picker-mern.herokuapp.com/) to start your pet adoption journey.
 
- ## Installation Instructions
- * This application should be used via web interface, no installation required.
+## Usage
+To explore Pet Picker:
+1. Visit our [Deployed Site](https://pet-picker-mern.herokuapp.com/).
+2. Sign up or log in to access personalized features.
+3. Browse or search for pets by category.
+4. Save your favorite pets for future reference.
 
- ## How to Use
- * To deploy application, go to [Deployed Site](https://pet-picker-mern.herokuapp.com/)
+## Features
+- **User Authentication**: Secure sign-up and login processes with JWT and bcrypt for password hashing, ensuring the safety and privacy of your information.
+- **Advanced Search Functionality**: Filter pets by category, age, size, and more to find your perfect match.
+- **Favorite Pets Management**: Save and manage your favorite pets with ease, allowing for a personalized adoption experience.
+- **Intuitive, Responsive Design**: Enjoy a seamless experience across various devices, thanks to our user-friendly and responsive interface.
+- **Secure User Experience**: With the implementation of bcrypt for password security, it ensures that your account information is safely encrypted and stored.
 
-## How to contribute
-* Contact us on github.
+
+## How to Contribute
+Interested in contributing? I'd love your help improving Pet Picker! Please reach out to me on GitHub for more information on how to get involved.
+
+## Contact Us
+For any questions or contributions, please reach out to me via GitHub.
+
+Thank you for exploring Pet Picker, where your next pet adventure begins!
