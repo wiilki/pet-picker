@@ -131,12 +131,21 @@
       size: text(raw.size),
       sex: text(raw.sex || raw.gender),
       color: text(raw.color || raw.colour),
+      coat: text(raw.coat),
+      ageText: str(raw.age_text),
+      houseTrained: raw.house_trained,
+      spayedNeutered: raw.altered,
+      microchipped: raw.microchipped,
+      vaccinated: raw.vaccinated,
+      specialNeeds: raw.special_needs,
+      needsFoster: raw.needs_foster,
+      daysWaiting: raw.days_waiting,
       photos: photoUrls(raw),
       summary: description,
       rescueName: text(rescue.name || raw.organization_name, "Rescue or shelter"),
       rescueUrl: safeUrl(rescue.url || rescue.website || rescue.website_url || rescue.adoption_url),
       location: cityText(raw, rescue),
-      adoptionDetails: str(rescue.how_to_adopt || rescue.adoption_process || rescue.description),
+      adoptionDetails: str(rescue.how_to_adopt || rescue.adoption_process || rescue.about || rescue.description),
       fee: raw.fee === 0 ? "Free" : str(raw.fee || raw.adoption_fee),
       goodWith: raw.good_with && typeof raw.good_with === "object" ? raw.good_with : {},
       traits: (raw.temperament && typeof raw.temperament === "object") ? raw.temperament : {},
@@ -292,8 +301,22 @@
     var dataHead = element("h3", "", "The essentials");
     var dl = element("dl", "pet-detail-data");
     dl.append(detailRow("Breed", pet.breed), detailRow("Age", pet.age), detailRow("Size", pet.size), detailRow("Sex", pet.sex), detailRow("Color", pet.color));
+    if (pet.coat !== "Not listed") dl.append(detailRow("Coat", pet.coat));
+    if (pet.ageText) dl.append(detailRow("Age details", pet.ageText));
     if (pet.fee) dl.append(detailRow("Adoption fee", pet.fee));
+    if (pet.daysWaiting !== null && pet.daysWaiting !== undefined && pet.daysWaiting !== "") dl.append(detailRow("Days waiting", String(pet.daysWaiting)));
     right.append(dataHead, dl);
+    var healthItems = [
+      ["House-trained", pet.houseTrained], ["Spayed / neutered", pet.spayedNeutered],
+      ["Microchipped", pet.microchipped], ["Vaccinations current", pet.vaccinated],
+      ["Special needs", pet.specialNeeds], ["Needs foster", pet.needsFoster]
+    ].filter(function (entry) { return entry[1] !== null && entry[1] !== undefined && entry[1] !== ""; });
+    if (healthItems.length) {
+      right.append(element("h3", "", "Care & health"));
+      var health = element("dl", "pet-detail-data");
+      healthItems.forEach(function (entry) { health.append(detailRow(entry[0], yesNo(entry[1]))); });
+      right.append(health);
+    }
     var good = pet.goodWith;
     var hasGood = good && Object.keys(good).length > 0;
     if (hasGood) {
