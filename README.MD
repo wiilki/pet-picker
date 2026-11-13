@@ -1,50 +1,36 @@
 # Pet Picker
 
-An innovative platform designed to enhance your pet adoption experience by leveraging the latest web technologies. Dive into a user-friendly interface where the wonders of the animal kingdom are just a click away. Built on the MERN stack with GraphQL, our application promises a seamless and dynamic user interaction.
+A redesigned, mobile-first pet adoption discovery website.
 
-![Pet Picker](client/src/images/screenshot.png)
+## Live site
 
-## Table of Contents
-1. [Project Description](#project-description)
-2. [Technology Stack](#technology-stack)
-3. [Installation Instructions](#installation-instructions)
-4. [Usage](#usage)
-5. [Features](#features)
-6. [How to Contribute](#how-to-contribute)
-7. [Contact](#contact)
-
-## Project Description
-Pet Picker revolutionizes the pet adoption process through a modern web application. By converting a RESTful API to GraphQL, it ensure efficient and precise data handling. Authenticated users can easily search, view, and save their favorite pets to revisit at any time. Deployed on Heroku and powered by MongoDB Atlas, our application ensures accessibility and reliability.
-
-## Technology Stack
-- **Frontend**: React.js
-- **Backend**: Node.js, Express.js, GraphQL, Apollo Server
-- **Database**: MongoDB with Mongoose ODM
-- **Authentication**: JWT for secure access and bcrypt for password hashing
-- **Deployment**: Heroku with MongoDB Atlas
-
-## Installation Instructions
-Accessing Pet Picker requires no installation. Simply navigate to our [deployed site](https://pet-picker-mern.herokuapp.com/) to start your pet adoption journey.
-
-## Usage
-To explore Pet Picker:
-1. Visit our [Deployed Site](https://pet-picker-mern.herokuapp.com/).
-2. Sign up or log in to access personalized features.
-3. Browse or search for pets by category.
-4. Save your favorite pets for future reference.
+Once GitHub Pages is enabled, the public site is **https://wiilki.github.io/pet-picker/**.
 
 ## Features
-- **User Authentication**: Secure sign-up and login processes with JWT and bcrypt for password hashing, ensuring the safety and privacy of your information.
-- **Advanced Search Functionality**: Filter pets by category, age, size, and more to find your perfect match.
-- **Favorite Pets Management**: Save and manage your favorite pets with ease, allowing for a personalized adoption experience.
-- **Intuitive, Responsive Design**: Enjoy a seamless experience across various devices, thanks to our user-friendly and responsive interface.
-- **Secure User Experience**: With the implementation of bcrypt for password security, it ensures that your account information is safely encrypted and stored.
 
+- Responsive editorial layout with accessible keyboard navigation.
+- Search dogs, cats, rabbits, small pets, birds, or horses.
+- Filter by age, size, gender, and optional five-digit US ZIP code.
+- Open matching live results on [Petfinder](https://www.petfinder.com/search/) without exposing API credentials.
+- Save and reopen searches from local browser storage, without an account.
+- Clearly distinguish illustrative animal photography from live adoption listings.
 
-## How to Contribute
-Interested in contributing? I'd love your help improving Pet Picker! Please reach out to me on GitHub for more information on how to get involved.
+## Deploy
 
-## Contact
-For any questions or contributions, please reach out to me via GitHub.
+The production-ready static app is in `docs/`. The GitHub Actions workflow at `.github/workflows/publish-pages.yml` verifies and publishes it when `main` changes.
 
-Thank you for exploring Pet Picker, where your next pet adventure begins!
+**One-time repository step:** Open **Settings → Pages → Build and deployment → Source → GitHub Actions**. GitHub Pages must be enabled for this repository; the workflow cannot turn it on without elevated Pages administration credentials.
+
+Visit `https://wiilki.github.io/pet-picker/` after the Pages deployment job succeeds.
+
+## Local development
+
+From the repository root, run `python3 -m http.server 8000 --directory docs`, then visit `http://localhost:8000`.
+
+The client-side code has no build or credentials requirement. Run `node --check docs/app.js` and `python3 docs/check_site.py` for basic validation.
+
+## About the legacy code
+
+The older React / Express / Apollo / MongoDB application remains preserved in `client/` and `server/`, but is **not** running on GitHub Pages. It depends on a separate deployed backend and Petfinder API credentials. GitHub Pages can host only the static front end; it cannot host MongoDB, Express, or a GraphQL server.
+
+The new site uses Petfinder's public search pages for live results. Pet Picker is an independent discovery guide and is not affiliated with Petfinder. Saved preferences are local to each browser; no user account or animal inventory is implied.
