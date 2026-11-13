@@ -107,3 +107,11 @@ footer{background:#edf0e8;border-top:1px solid #e2e7df}.footer-top{padding-top:5
 @media(max-width:900px){.pet-results-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.pet-detail-layout{grid-template-columns:1fr}.pet-detail-media{display:grid;grid-template-columns:minmax(0,1fr) 85px;gap:12px}.pet-gallery-thumbs{display:flex;flex-direction:column;margin:0}.pet-thumb{height:66px}.pet-detail-primary-image{height:350px}.pet-detail-content{padding:27px}.pet-detail-name{font-size:43px}}
 @media(max-width:600px){.live-results{padding-top:70px;padding-bottom:25px}.results-heading{align-items:start;flex-direction:column;gap:18px}.results-heading h2{font-size:37px}.coverage-note{padding:13px 12px}.coverage-note p{font-size:11px}.pet-results-grid{grid-template-columns:1fr;gap:17px}.result-image{height:280px}.result-name{font-size:29px}.result-copy{padding:22px}.pet-details-dialog{width:calc(100% - 16px);max-height:94vh;border-radius:16px}.pet-detail-media{display:block;padding:12px}.pet-detail-primary-image{height:300px}.pet-gallery-thumbs{display:flex;flex-direction:row;overflow-x:auto;margin-top:9px}.pet-thumb{flex:0 0 68px;height:62px}.pet-detail-content{padding:25px 21px 32px}.pet-detail-name{font-size:38px}.pet-detail-data{grid-template-columns:1fr 1fr}.pet-detail-links{align-items:stretch;flex-direction:column}.pet-detail-links .button{width:100%}.pet-details-close{margin:10px 10px -53px 0}}
 @media(prefers-reduced-motion:reduce){.skeleton-image,.skeleton-line{animation:none}}
+
+/* Prominent photo handoff for shelters that do not license direct embedding. */
+.result-photo-link{position:absolute;left:14px;top:15px;z-index:2;padding:10px 12px;border-radius:30px;background:#fffefbf1;color:#34533f;font-size:11px;font-weight:800;box-shadow:0 3px 14px #182c1b21}
+.result-photo-link:hover{text-decoration:underline}
+.pet-detail-photo-link{display:block;background:#fffefb;color:#3b684a;border:1px solid #dce5d8;padding:13px 15px;margin-top:12px;border-radius:12px;font-size:12px;font-weight:800;line-height:1.5;text-align:center}
+.pet-detail-photo-link:hover{text-decoration:underline}
+@media(max-width:900px){.pet-detail-photo-link{align-self:start;margin-top:0}}
+@media(max-width:600px){.pet-detail-photo-link{margin-top:10px}}
