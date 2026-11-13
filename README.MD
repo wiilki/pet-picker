@@ -34,3 +34,21 @@ The client-side code has no build or credentials requirement. Run `node --check 
 The older React / Express / Apollo / MongoDB application remains preserved in `client/` and `server/`, but is **not** running on GitHub Pages. It depends on a separate deployed backend and Petfinder API credentials. GitHub Pages can host only the static front end; it cannot host MongoDB, Express, or a GraphQL server.
 
 The new site uses Petfinder's public search pages for live results. Pet Picker is an independent discovery guide and is not affiliated with Petfinder. Saved preferences are local to each browser; no user account or animal inventory is implied.
+
+## On-page live animal profiles (2026)
+
+The adoption search now shows **live animal preview cards on Pet Picker itself**, with clickable full profiles, attributes, shelter information, original links, pagination, and browser-local favorite pets. The code in docs/results.js uses the public [Petnecto JSON API](https://petnecto.com/help/json-api), which requires no private key and permits cross-origin browser requests.
+
+**Important coverage and photo limitations:**
+- Current U.S. coverage in this live feed is limited to King County, Washington and Montgomery County, Maryland. Petfinder links remain available for broader and location-specific searches.
+- Those U.S. sources have photo_rights set to link-out, so individual animal photos must be opened on the shelter pages. Each card provides a prominent View actual photo link rather than misrepresenting unrelated photos. The built-in gallery supports images when a source explicitly permits embedding via shelter-granted or open-licence rights.
+- Availability and profile details belong to shelters and may change. This site does not process adoptions or claim a Petfinder affiliation.
+- Preferences and saved pet references are kept in this browser only. Saved profiles can become outdated.
+
+### Development checks
+
+- JS syntax: node --check docs/app.js && node --check docs/results.js
+- Static HTML/resource checks: python3 docs/check_site.py
+- DOM behavior test: npm install --no-save jsdom@26 && node docs/test_results.cjs
+
+The GitHub Pages workflow runs UI and static checks before deploying the main branch.

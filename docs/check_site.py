@@ -29,7 +29,9 @@ page = Links()
 page.feed(html)
 required = {"petSearch", "zip", "zipError", "savedDialog", "savedList", "savedCount",
             "openSaved", "saveSearch", "closeSaved", "savedExplore", "year", "toast",
-            "menuToggle", "mobileNav"}
+            "menuToggle", "mobileNav", "results", "resultsGrid", "resultsStatus",
+            "resultsMore", "loadMorePets", "resultsEmpty", "petDetailsDialog",
+            "petDetailsClose", "petDetailBody", "resultsPetfinder", "emptyPetfinder"}
 assert required <= page.ids, f"Missing interactive IDs: {required - page.ids}"
 for link in page.refs:
     if link.startswith("#"):
