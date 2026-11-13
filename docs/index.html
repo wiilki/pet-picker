@@ -66,10 +66,28 @@
         <label class="field"><span>Size</span><select name="size"><option value="">Any size</option><option value="small">Small</option><option value="medium">Medium</option><option value="large">Large</option><option value="xlarge">Extra large</option></select></label>
         <label class="field"><span>Gender</span><select name="gender"><option value="">Any gender</option><option value="male">Male</option><option value="female">Female</option></select></label>
       </div>
-      <div class="form-bottom"><div class="helper"><span id="zipHelp">No ZIP? Browse pets anywhere.</span><span id="zipError" class="error" hidden role="alert">Use a 5-digit US ZIP, or leave it blank.</span></div><div class="form-buttons"><button type="button" class="button outline-button" id="saveSearch"><span aria-hidden="true">♡</span> Save search</button><button class="button dark-button" type="submit">See adoptable pets <span aria-hidden="true">↗</span></button></div></div>
+      <div class="form-bottom"><div class="helper"><span id="zipHelp">No ZIP? Browse pets anywhere.</span><span id="zipError" class="error" hidden role="alert">Use a 5-digit US ZIP, or leave it blank.</span></div><div class="form-buttons"><button type="button" class="button outline-button" id="saveSearch"><span aria-hidden="true">♡</span> Save search</button><button class="button dark-button" type="submit">Show pets here <span aria-hidden="true">↓</span></button></div></div>
     </form>
-    <p class="disclaimer">↗ &nbsp; Live listings open on <a href="https://www.petfinder.com/search/" target="_blank" rel="noopener noreferrer">Petfinder</a>. Pet Picker is an independent discovery guide, not an adoption agency.</p>
+    <p class="disclaimer">↗ &nbsp; Search results now appear below. For more options, you can still browse <a href="https://www.petfinder.com/search/" target="_blank" rel="noopener noreferrer">Petfinder</a>. Pet Picker is an independent guide, not an adoption agency.</p>
   </div>
+</section>
+
+
+<section class="live-results container" id="results" aria-labelledby="resultsTitle">
+  <div class="results-heading">
+    <div>
+      <span class="kicker">REAL PETS. REAL STORIES.</span>
+      <h2 id="resultsTitle">Meet the <em>adorable ones.</em></h2>
+      <p id="resultsDescription" class="results-description">A live preview of adoptable pets from shelters currently covered by our data partner.</p>
+    </div>
+    <a id="resultsPetfinder" class="results-provider-link" href="https://www.petfinder.com/search/" target="_blank" rel="noopener noreferrer">Find more on Petfinder ↗</a>
+  </div>
+  <div class="coverage-note" id="coverageNote"><span aria-hidden="true">ⓘ</span><p><strong>About this preview:</strong> On-page U.S. listings currently come from selected shelters in King County, Washington and Montgomery County, Maryland. For broader U.S. coverage, use Petfinder. Always confirm availability with the shelter.</p></div>
+  <div id="resultsStatus" class="results-status" role="status" aria-live="polite">Finding new friends…</div>
+  <div id="resultsGrid" class="pet-results-grid" aria-label="Adoptable pet results"></div>
+  <div id="resultsEmpty" class="results-empty" hidden><span class="empty-icon" aria-hidden="true">♡</span><h3 id="emptyTitle">No matches in this feed right now.</h3><p id="emptyMessage">This on-page preview has limited U.S. shelter coverage. Petfinder can show more pets and rescues in your area.</p><div class="empty-actions"><a id="emptyPetfinder" href="https://www.petfinder.com/search/" class="button dark-button" target="_blank" rel="noopener noreferrer">See more pets on Petfinder ↗</a><button type="button" class="button outline-button" id="showNational">Browse covered U.S. shelters</button></div></div>
+  <div class="results-more" id="resultsMore" hidden><button type="button" class="button outline-button" id="loadMorePets">See more pets ↓</button></div>
+  <p class="results-credit">Live listing information by <a href="https://petnecto.com/" target="_blank" rel="noopener noreferrer">Petnecto</a> from participating shelters and public adoption sources. Shelter photos and details belong to their respective publishers; adoption is handled by the shelter.</p>
 </section>
 
 <section class="explore container" id="explore" aria-labelledby="exploreTitle">
@@ -94,6 +112,13 @@
 <footer><div class="container footer-top"><div><a href="#top" class="logo"><span class="logo-icon">♥</span> pet<span>picker</span><b>.</b></a><p>Good friends come in all shapes, sizes, and species.</p></div><nav aria-label="Footer"><a href="#find">Find pets</a><a href="#explore">Explore</a><a href="#how">How it works</a><a href="https://www.petfinder.com/" target="_blank" rel="noopener noreferrer">Petfinder ↗</a></nav></div><div class="container footer-bottom"><span>© <span id="year"></span> Pet Picker. Made with a soft spot for animals.</span><span>Independent discovery guide · No affiliations implied</span></div></footer>
 
 <dialog id="savedDialog" class="saved-dialog" aria-labelledby="savedTitle"><div class="dialog-head"><div><span class="kicker">YOUR SHORTLIST</span><h2 id="savedTitle">Saved searches <span>♡</span></h2></div><button id="closeSaved" class="close-dialog" type="button" aria-label="Close saved searches">×</button></div><p class="dialog-desc">Your favorite search preferences stay in this browser. No account needed.</p><div id="savedList" class="saved-list"></div><div class="dialog-actions"><button class="button dark-button" type="button" id="savedExplore">Explore pets ↗</button></div></dialog>
+
+<dialog id="petDetailsDialog" class="pet-details-dialog" aria-label="Full pet information">
+  <button class="pet-details-close" id="petDetailsClose" type="button" aria-label="Close pet details">×</button>
+  <div id="petDetailBody"></div>
+</dialog>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script defer src="app.js"></script>
+<script defer src="results.js"></script>
 </body></html>
