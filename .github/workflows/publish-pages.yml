@@ -21,6 +21,10 @@ jobs:
         run: |
           node --check docs/app.js
           node --check docs/results.js
+      - name: Test card and profile interactions
+        run: |
+          npm install --no-save --no-fund --no-audit --prefix "$RUNNER_TEMP/petpicker-tests" jsdom@26
+          NODE_PATH="$RUNNER_TEMP/petpicker-tests/node_modules" node docs/test_results.cjs
       - name: Probe public pet listing feed
         run: node docs/probe_feed.cjs
       - name: Verify links and assets
