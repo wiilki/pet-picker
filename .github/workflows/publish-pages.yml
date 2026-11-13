@@ -18,7 +18,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Check browser JavaScript
-        run: node --check docs/app.js
+        run: |
+          node --check docs/app.js
+          node --check docs/results.js
+      - name: Probe public pet listing feed
+        run: node docs/probe_feed.cjs
       - name: Verify links and assets
         run: python3 docs/check_site.py
   deploy:
