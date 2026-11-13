@@ -27,3 +27,15 @@ const urls = [
   if (!res.ok) throw new Error("Feed returned " + res.status);
  }
 })().catch(e=>{console.error("Probe failed", e.message);process.exitCode=1});
+
+
+(async function probeCatPhotoFeed(){
+ for (const base of ["https://adoptacat.org","https://adopt-a-cat.org"]) {
+   try {
+     const response = await fetch(base + "/data/cats_available.json", {signal: AbortSignal.timeout(12000)});
+     const data = await response.json();
+     const cats = Array.isArray(data) ? data : (Array.isArray(data.cats) ? data.cats : (Array.isArray(data.animals) ? data.animals : []));
+     console.log("ALASKA PROBE",JSON.stringify({base,status:response.status,cors:response.headers.get("access-control-allow-origin"),keys:Array.isArray(data)?"array":Object.keys(data),count:cats.length,first_cat:cats[0]&&{keys:Object.keys(cats[0]),name:cats[0].name,images:cats[0].photos||cats[0].image||cats[0].imageUrl,slug:cats[0].slug}}));
+   } catch(e){console.log("ALASKA PROBE ERROR",base,e.message);}
+ }
+})().catch(e=>console.log("Additional probe failed",e.message));
