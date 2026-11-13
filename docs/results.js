@@ -89,7 +89,7 @@
     return a;
   }
   function photoUrls(raw) {
-    if (raw.photo_rights === "link-out" || raw.photo_rights === "none") return [];
+    if (raw.photo_rights !== "open-licence" && raw.photo_rights !== "shelter-granted") return [];
     var source = Array.isArray(raw.photos) ? raw.photos : (raw.photos ? [raw.photos] : []);
     if (!source.length && raw.photo) source = [raw.photo];
     return source.map(function (p) {
@@ -141,6 +141,7 @@
       goodWith: raw.good_with && typeof raw.good_with === "object" ? raw.good_with : {},
       traits: (raw.temperament && typeof raw.temperament === "object") ? raw.temperament : {},
       listingUrl: listingUrl,
+      photoLink: safeUrl(raw.photo_link || listingUrl),
       url: pageUrl,
       attribution: str(raw.attribution && raw.attribution.text),
       attributionUrl: safeUrl(raw.attribution && raw.attribution.url),
@@ -206,6 +207,7 @@
     save.setAttribute("aria-label", isSaved(pet.id) ? "Remove " + pet.name + " from saved pets" : "Save " + pet.name);
     save.setAttribute("aria-pressed", String(isSaved(pet.id)));
     var cardImage = element("div", "result-image"); cardImage.append(imageButton, save);
+    if (!pet.photos.length && pet.photoLink) cardImage.append(anchor("View actual photo ↗", pet.photoLink, "result-photo-link"));
     var body = element("div", "result-copy");
     var eyebrow = element("p", "result-eyebrow", text(pet.species, "PET") + (pet.location ? " · " + pet.location : ""));
     var name = element("h3", "result-name", pet.name);
@@ -253,6 +255,9 @@
     }
     showPhoto(pet.photos[0]);
     area.append(active);
+    if (!pet.photos.length && pet.photoLink) {
+      area.append(anchor("View " + pet.name + "'s actual photo at the shelter ↗", pet.photoLink, "pet-detail-photo-link"));
+    }
     if (pet.photos.length > 1) {
       var thumbs = element("div", "pet-gallery-thumbs");
       pet.photos.forEach(function (url, index) {
