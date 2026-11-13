@@ -74,11 +74,13 @@
   }
   function launch(filters) {
     // A user-initiated navigation preserves this page while searching live listings.
-    var tab = window.open(buildUrl(filters), "_blank", "noopener,noreferrer");
-    if (!tab) {
-      // Popup blockers can reject a new tab; the same-tab fallback still reaches Petfinder.
-      window.location.assign(buildUrl(filters));
-    }
+    var link = document.createElement("a");
+    link.href = buildUrl(filters);
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    document.body.append(link);
+    link.click();
+    link.remove();
   }
   function drawSaved() {
     list.replaceChildren();
