@@ -115,7 +115,12 @@
   form.addEventListener("submit", function (event) {
     event.preventDefault();
     var filters = getFilters();
-    if (validate(filters)) launch(filters);
+    if (!validate(filters)) return;
+    if (window.PetPickerResults && typeof window.PetPickerResults.search === "function") {
+      window.PetPickerResults.search(filters, { scroll: true });
+    } else {
+      launch(filters);
+    }
   });
   zip.addEventListener("input", function () { if (!error.hidden) validate(getFilters()); });
   document.getElementById("saveSearch").addEventListener("click", function () {
@@ -165,5 +170,6 @@
     });
   });
   document.getElementById("year").textContent = String(new Date().getFullYear());
+  window.PetPickerDirectory = { buildUrl: buildUrl, getFilters: getFilters };
   persist();
 }());
