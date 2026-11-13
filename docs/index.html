@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f8f7f1">
+  <meta name="description" content="Your next best friend is out there. Pet Picker makes it easy to discover adoptable pets and find your kind of love.">
+  <meta property="og:title" content="Pet Picker — Love at first paw">
+  <meta property="og:description" content="A thoughtful starting point for finding your next companion.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%233d5b48'/%3E%3Ctext x='32' y='44' font-size='38' text-anchor='middle'%3E%F0%9F%90%BE%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <title>Pet Picker — Love at first paw</title>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="topline"><span class="top-dot"></span> FOR THE LOVE OF FOUR PAWS (AND TWO, AND NONE) <span aria-hidden="true">✳</span></div>
+<header class="site-header" id="top">
+  <div class="container nav-inner">
+    <a href="#top" class="logo" aria-label="Pet Picker home"><span class="logo-icon">♥</span> pet<span>picker</span><b>.</b></a>
+    <nav class="desktop-nav" aria-label="Main"><a href="#explore">Explore pets</a><a href="#how">How it works</a><a href="#about">Our approach</a></nav>
+    <div class="nav-right">
+      <button type="button" class="saved-button" id="openSaved" aria-label="Open saved searches"><span aria-hidden="true">♡</span> Saved <i id="savedCount">0</i></button>
+      <a class="nav-cta" href="#find">Find a friend <span aria-hidden="true">↗</span></a>
+      <button type="button" class="menu-button" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile" hidden><a href="#explore">Explore pets</a><a href="#how">How it works</a><a href="#about">Our approach</a><a href="#find">Find a friend</a></nav>
+</header>
+<main id="main">
+<section class="hero container" aria-labelledby="heroTitle">
+  <div class="hero-content">
+    <p class="eyebrow"><span>✳</span> A LITTLE LOVE GOES A LONG WAY</p>
+    <h1 id="heroTitle">Love at <span class="underline-word">first</span> <em>paw.</em></h1>
+    <p class="hero-description">The couch cuddler. The adventure buddy. The tiny troublemaker. Somewhere out there, your kind of companion is waiting to meet you.</p>
+    <div class="hero-links"><a class="button dark-button" href="#find">Find your match <span aria-hidden="true">↗</span></a><a class="quiet-link" href="#explore">Just looking around <span aria-hidden="true">↗</span></a></div>
+    <div class="hero-foot"><div class="animal-bubbles" aria-hidden="true"><span>🐶</span><span>🐱</span><span>🐰</span></div><p>Every great friendship<br><strong>starts with a hello.</strong></p></div>
+  </div>
+  <div class="hero-visual">
+    <div class="photo-arch"><img src="assets/dogs.jpg" alt="Dog portrait representing the happiness of finding a pet" fetchpriority="high"></div>
+    <div class="love-sticker" aria-hidden="true">you + me <span>= 🧡</span></div>
+    <div class="photo-caption"><span>♥</span><p>Meet someone<br><strong>worth coming home to.</strong></p></div>
+    <span class="decorative-spark" aria-hidden="true">✳</span>
+  </div>
+</section>
+
+<section id="find" class="search-section" aria-labelledby="searchTitle">
+  <div class="container">
+    <div class="section-intro search-intro"><div><span class="kicker">LET'S MAKE AN INTRODUCTION</span><h2 id="searchTitle">Who are you looking for?</h2></div><p>A few details, and we'll help you take the next step.</p></div>
+    <form class="search-form" id="petSearch" novalidate>
+      <fieldset class="pet-choice"><legend>I'm hoping to meet a...</legend>
+        <div class="choices" role="group" aria-label="Animal type">
+          <label><input type="radio" name="type" value="dog" checked><span>🐶 &nbsp; Dog</span></label>
+          <label><input type="radio" name="type" value="cat"><span>🐱 &nbsp; Cat</span></label>
+          <label><input type="radio" name="type" value="rabbit"><span>🐰 &nbsp; Rabbit</span></label>
+          <label><input type="radio" name="type" value="small-and-furry"><span>🐹 &nbsp; Small pet</span></label>
+          <label><input type="radio" name="type" value="bird"><span>🐦 &nbsp; Bird</span></label>
+          <label><input type="radio" name="type" value="horse"><span>🐴 &nbsp; Horse</span></label>
+        </div>
+      </fieldset>
+      <div class="filters">
+        <label class="field zip-field"><span>Your ZIP code <small>(optional)</small></span><input type="text" name="zip" id="zip" maxlength="5" inputmode="numeric" autocomplete="postal-code" placeholder="e.g. 90210" aria-describedby="zipHelp zipError"></label>
+        <label class="field"><span>Age</span><select name="age"><option value="">Any age</option><option value="baby">Baby</option><option value="young">Young</option><option value="adult">Adult</option><option value="senior">Senior</option></select></label>
+        <label class="field"><span>Size</span><select name="size"><option value="">Any size</option><option value="small">Small</option><option value="medium">Medium</option><option value="large">Large</option><option value="xlarge">Extra large</option></select></label>
+        <label class="field"><span>Gender</span><select name="gender"><option value="">Any gender</option><option value="male">Male</option><option value="female">Female</option></select></label>
+      </div>
+      <div class="form-bottom"><div class="helper"><span id="zipHelp">No ZIP? Browse pets anywhere.</span><span id="zipError" class="error" hidden role="alert">Use a 5-digit US ZIP, or leave it blank.</span></div><div class="form-buttons"><button type="button" class="button outline-button" id="saveSearch"><span aria-hidden="true">♡</span> Save search</button><button class="button dark-button" type="submit">See adoptable pets <span aria-hidden="true">↗</span></button></div></div>
+    </form>
+    <p class="disclaimer">↗ &nbsp; Live listings open on <a href="https://www.petfinder.com/search/" target="_blank" rel="noopener noreferrer">Petfinder</a>. Pet Picker is an independent discovery guide, not an adoption agency.</p>
+  </div>
+</section>
+
+<section class="explore container" id="explore" aria-labelledby="exploreTitle">
+  <div class="section-intro"><div><span class="kicker">SOMETHING FOR EVERY HEART</span><h2 id="exploreTitle">Your kind of <em>company.</em></h2></div><p>Big personalities, tiny paws, and everything in between. Find a friend who fits your world.</p></div>
+  <div class="category-grid">
+    <article class="category"><div class="category-photo"><img src="assets/dogs.jpg" alt="Dog portrait" loading="lazy"><span>01 / 03</span></div><div class="category-copy"><div><p class="category-kicker">LOYAL HEARTS, BIG ADVENTURES</p><h3>Dog people, this way.</h3><p>For long walks, warm welcomes, and someone who always thinks you're pretty great.</p></div><button type="button" data-type="dog" aria-label="Explore dogs">↗</button></div></article>
+    <article class="category"><div class="category-photo"><img src="assets/cats.jpg" alt="Cat portrait" loading="lazy"><span>02 / 03</span></div><div class="category-copy"><div><p class="category-kicker">COZY DAYS, CURIOUS MINDS</p><h3>Find your purr-son.</h3><p>For slow mornings, sunny windows, and a little extra character around the house.</p></div><button type="button" data-type="cat" aria-label="Explore cats">↗</button></div></article>
+    <article class="category"><div class="category-photo"><img src="assets/rabbits.jpg" alt="Rabbit portrait" loading="lazy"><span>03 / 03</span></div><div class="category-copy"><div><p class="category-kicker">SMALL PAWS, MASSIVE CHARM</p><h3>Little loves, big joy.</h3><p>For gentle friendships, playful curiosity, and the magic in the small things.</p></div><button type="button" data-type="rabbit" aria-label="Explore rabbits">↗</button></div></article>
+  </div>
+  <p class="illustrative-note">Photography is illustrative. These are not individual animals currently listed for adoption.</p>
+</section>
+
+<section class="how" id="how" aria-labelledby="howTitle"><div class="container"><div class="how-heading"><span class="kicker">EASY AS ONE, TWO, WOOF</span><h2 id="howTitle">A little closer to <em>hello.</em></h2><p>Just a thoughtful first step toward finding your next companion.</p></div><div class="steps">
+<article><span class="step-n">01</span><span class="step-icon">✳</span><h3>Tell us your vibe.</h3><p>Choose a pet type and add a few preferences to focus your search.</p></article>
+<article><span class="step-n">02</span><span class="step-icon">♡</span><h3>Explore real listings.</h3><p>We'll take you to Petfinder to discover available pets and local rescues.</p></article>
+<article><span class="step-n">03</span><span class="step-icon">⌂</span><h3>Make it official.</h3><p>Connect with a shelter or rescue directly to learn about meeting and adoption.</p></article>
+</div></div></section>
+
+<section class="end-cta container" id="about"><div class="cta-inner"><span class="bg-heart" aria-hidden="true">♡</span><span class="kicker">A NEW CHAPTER BEGINS</span><h2>Somebody's favorite<br>human? <em>Could be you.</em></h2><p>Finding the right companion isn't about perfect. It's about that wonderful feeling of belonging.</p><a class="button light-button" href="#find">Start your search <span aria-hidden="true">↗</span></a><span class="cta-star" aria-hidden="true">✳</span></div></section>
+</main>
+
+<footer><div class="container footer-top"><div><a href="#top" class="logo"><span class="logo-icon">♥</span> pet<span>picker</span><b>.</b></a><p>Good friends come in all shapes, sizes, and species.</p></div><nav aria-label="Footer"><a href="#find">Find pets</a><a href="#explore">Explore</a><a href="#how">How it works</a><a href="https://www.petfinder.com/" target="_blank" rel="noopener noreferrer">Petfinder ↗</a></nav></div><div class="container footer-bottom"><span>© <span id="year"></span> Pet Picker. Made with a soft spot for animals.</span><span>Independent discovery guide · No affiliations implied</span></div></footer>
+
+<dialog id="savedDialog" class="saved-dialog" aria-labelledby="savedTitle"><div class="dialog-head"><div><span class="kicker">YOUR SHORTLIST</span><h2 id="savedTitle">Saved searches <span>♡</span></h2></div><button id="closeSaved" class="close-dialog" type="button" aria-label="Close saved searches">×</button></div><p class="dialog-desc">Your favorite search preferences stay in this browser. No account needed.</p><div id="savedList" class="saved-list"></div><div class="dialog-actions"><button class="button dark-button" type="button" id="savedExplore">Explore pets ↗</button></div></dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script defer src="app.js"></script>
+</body></html>
